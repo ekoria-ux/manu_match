@@ -1,0 +1,220 @@
+@import "bootstrap";
+
+/* mixins, variables, etc. */
+
+@mixin box_sizing {
+  -moz-box-sizing:    border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing:         border-box;
+}
+
+/* bootstrap */
+
+$bgDefault      : #f7bc47;
+$bgHighlight    : #53ad44;
+$coDefault      : #000000;
+$coHighlight    : #ffffff;
+$dropDown       : false;
+.navbar {
+  background-color: $bgDefault;
+  width: 90%;
+  border-radius: 0.5em;
+  .navbar-brand {
+    color: $coDefault;
+    &:hover, &:focus {
+      color: $coHighlight;
+    }
+  }
+  .navbar-text {
+    color: $coDefault; 
+    a {
+      color: $coHighlight;
+      &:hover, &:focus {
+        color: $coHighlight;
+      }
+    }
+  }
+  .navbar-nav {
+    .nav-link {
+      color: $coDefault;
+      border-radius: .25rem;
+      margin: 0 0.25em;
+      &:not(.disabled) {
+        &:hover, &:focus {
+          color: $coHighlight;
+        }
+      }
+    }
+    .nav-item.active, .nav-item.show {
+      .nav-link, .nav-link:hover, .nav-link:focus {
+        color: $coHighlight;
+        background-color: $bgHighlight;
+      }
+    }
+  }
+  .navbar-toggler {
+    border-color: $coHighlight;
+    &:hover, &:focus {
+      background-color: $bgHighlight;
+    }
+    .navbar-toggler-icon {
+      background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 32 32' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='white' stroke-width='3' stroke-linecap='round' stroke-miterlimit='10' d='M4 8h24M4 16h24M4 24h24'/%3E%3C/svg%3E");
+    }
+  }
+  .navbar-collapse,
+  .navbar-form {
+    border-color: $coDefault; }
+  .navbar-link {
+    color: $coDefault;
+    &:hover {
+      color: $coHighlight;
+    }
+  }
+}
+@media (max-width: 575px) {
+  .navbar-expend-sm .navbar-nav .show .dropdown-menu {
+    .dropdown-item {
+      color: $coDefault;
+      &:hover, &:focus {
+        color: $coHighlight; }}
+    .dropdown-item.active {
+      color: $coHighlight;
+      background-color: $bgHighlight; }}}
+@media (max-width: 767px) {
+  .navbar-expend-md .navbar-nav .show .dropdown-menu {
+    .dropdown-item {
+      color: $coDefault;
+      &:hover, &:focus {
+        color: $coHighlight; }}
+    .dropdown-item.active {
+      color: $coHighlight;
+      background-color: $bgHighlight; }}}
+@media (max-width: 991px) {
+  .navbar-expend-lg .navbar-nav .show .dropdown-menu {
+    .dropdown-item {
+      color: $coDefault;
+      &:hover, &:focus {
+        color: $coHighlight; }}
+    .dropdown-item.active {
+      color: $coHighlight;
+      background-color: $bgHighlight; }}}
+@media (max-width: 1199px) {
+  .navbar-expend-xl .navbar-nav .show .dropdown-menu {
+    .dropdown-item {
+      color: $coDefault;
+      &:hover, &:focus {
+        color: $coHighlight; }}
+    .dropdown-item.active {
+      color: $coHighlight;
+      background-color: $bgHighlight; }}}
+.navbar-expend .navbar-nav .show .dropdown-menu {
+  .dropdown-item {
+    color: $coDefault;
+    &:hover, &:focus {
+      color: $coHighlight; }}
+  .dropdown-item.active {
+    color: $coHighlight;
+    background-color: $bgHighlight; }}
+
+/* miscellaneous */
+
+.debug_dump {
+  clear: both;
+  float: left;
+  width: 100%;
+  margin-top: 45px;
+  @include box_sizing;
+}
+
+/* universal */
+
+body {
+  padding-top: 100px;
+}
+
+section {
+  overflow: auto;
+}
+
+textarea {
+  resize: vertical;
+}
+
+.center {
+  text-align: center;
+  h1 {
+    margin-bottom: 10px;
+  }
+}
+
+li {
+  list-style: none;
+}
+
+.error_explanation {
+  border: 2px solid red;
+  border-radius: 1em;
+  color: red;
+  padding: 3px;
+}
+
+/* typography */
+
+h1, h2, h3, h4, h5, h6 {
+  line-height: 1;
+}
+
+/* header */
+
+#logo {
+  margin: auto 40px;
+  font-size: 1.2em;
+  letter-spacing: -1px;
+  font-weight: bold;
+}
+
+.blackbrown {
+  color: black;
+  &:hover {
+    color: saddlebrown;
+    text-decoration: none;
+  }
+}
+
+.f-size-header {
+  font-size: 0.8em;
+}
+  
+
+/* footer */
+
+footer {
+  margin-top: 45px;
+  padding-top: 5px;
+  border-top: 1px solid gray("200");
+  color: gray;
+  a {
+    color: gray;
+    &:hover {
+      color: gray("700");
+      font-weight: bolder;
+    }
+  }
+  small {
+    float: left;
+  }
+  ul {
+    float: right;
+    list-style: none;
+    li {
+      float: left;
+      margin-left: 15px;
+    }
+  }
+}
+
+/* form */
+
+.form-field {
+  width: 80%;
+} 
