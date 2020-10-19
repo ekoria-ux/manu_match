@@ -1,9 +1,17 @@
 <header>
-  <nav class="navbar nav">
-    <ul>
-      <%= link_to "Top", :root %>
-      <%= link_to "求人記事一覧", :articles %>
-      <%= link_to "通知一覧", "#" %>
-    </ul>
+  <nav class="navbar fixed-top navbar-expand-lg mr-auto ml-auto">
+    <div class="navbar-brand">
+      <%= link_to "manu-Match", :root, id: "logo", class: "blackbrown"%>
+    </div>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#header-navbarToggler" aria-controls="header-navbarToggler" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+    <div class="collapse navbar-collapse justify-content-around" id="header-navbarToggler">
+      <ul class = "navbar-nav mt-lg-10">
+        <li class="nav-link"><%= link_to "トップ", :root, class: "blackbrown f-size-header"%></li>
+        <li class="nav-link"><%= link_to "求人記事一覧", :articles, class: "blackbrown f-size-header"%></li>
+        <li class="nav-link"><%= link_to "通知一覧", "#", class: "blackbrown f-size-header"%></li>
+      </ul>
+    </div>
   </nav>
 </header>

@@ -1,0 +1,23 @@
+<% @page_title = "#{@user.name}さんのページ" %>
+<h4><%= @page_title %></h4>
+
+<div class="row">
+  <div class="col-md-4">
+    <div class="pict">
+      <% if @user.avatar.attached? %> 
+        <%= image_tag @user.profile_avatar, class: "profile-pic" %>
+      <% end %>
+    </div>
+  </div>
+  <div class="col-md-8 text-left">
+    <div class="user-info">
+      <h3><%= @user.name %></h3>
+      <h4><%= @user.company_name %></h4>
+      <% if @user == current_user %>
+        <div class="profile-btn">
+          <%= link_to "登録情報編集", :user, class: "btn btn-default" %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

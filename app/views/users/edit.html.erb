@@ -1,0 +1,10 @@
+<% @page_title = "ユーザー編集" %>
+<h4><%= @page_title %></h4>
+
+<div class="toolbar"><%= link_to "ユーザーページに戻る", @user %></div>
+
+<%= form_for @user do |form| %>
+  <%= render "form", form: form %>
+  <div><%= form.submit "ユーザー編集", class: 'btn btn-success'%></div>
+<% end %>
+

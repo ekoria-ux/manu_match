@@ -29,6 +29,11 @@ gem 'jbuilder'
 gem 'bootsnap', require: false
 gem 'sorcery'
 gem 'bootstrap'
+gem 'rails-i18n'
+gem 'aws-sdk-s3', require: false
+gem 'image_processing'
+gem 'mini_magick'
+gem 'active_storage_validations'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

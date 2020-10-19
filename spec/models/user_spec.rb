@@ -7,8 +7,15 @@ RSpec.describe User, type: :model do
     it { is_expected.to validate_presence_of :name }
     it {
       is_expected.to validate_length_of(:name).
-        is_at_most(20).
-        with_message("20文字以下にしてください")
+        is_at_most(20)
+    }
+  end
+
+  context "会社名のvalidation" do
+    it { is_expected.to validate_presence_of :company_name }
+    it {
+      is_expected.to validate_length_of(:company_name).
+        is_at_most(100)
     }
   end
 
@@ -16,8 +23,7 @@ RSpec.describe User, type: :model do
     it { is_expected.to validate_presence_of :email }
     it {
       is_expected.to validate_length_of(:email).
-        is_at_most(100).
-        with_message("100文字以下にしてください")
+        is_at_most(100)
     }
     it { is_expected.to validate_uniqueness_of :email }
   end
@@ -26,8 +32,7 @@ RSpec.describe User, type: :model do
     it { is_expected.to validate_presence_of :password }
     it {
       is_expected.to validate_length_of(:password).
-        is_at_least(6).
-        with_message("6文字以上にしてください")
+        is_at_least(6)
     }
   end
 
