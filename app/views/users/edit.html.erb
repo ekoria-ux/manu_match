@@ -1,10 +1,14 @@
-<% @page_title = "ユーザー編集" %>
-<h4><%= @page_title %></h4>
+<% provide(:title, "ユーザー編集") %>
 
-<div class="toolbar"><%= link_to "ユーザーページに戻る", @user %></div>
+<div class="toolbar row justify-content-end"><%= link_to "ユーザーページに戻る", @user %></div>
+<%= render "shared/error_messages", object: @user %>
 
-<%= form_for @user do |form| %>
-  <%= render "form", form: form %>
-  <div><%= form.submit "ユーザー編集", class: 'btn btn-success'%></div>
-<% end %>
-
+<div class="row justify-content-center">
+  <div class="col-md-6 col-md-offset-3">
+    <h4>ユーザー編集</h4>
+    <%= form_for @user do |form| %>
+      <%= render "form", form: form %>
+      <div><%= form.submit "ユーザー編集", class: 'btn btn-success'%></div>
+    <% end %>
+  </div>
+</div>

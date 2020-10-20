@@ -9,8 +9,13 @@
     <div class="collapse navbar-collapse justify-content-around" id="header-navbarToggler">
       <ul class = "navbar-nav mt-lg-10">
         <li class="nav-link"><%= link_to "トップ", :root, class: "blackbrown f-size-header"%></li>
-        <li class="nav-link"><%= link_to "求人記事一覧", :articles, class: "blackbrown f-size-header"%></li>
-        <li class="nav-link"><%= link_to "通知一覧", "#", class: "blackbrown f-size-header"%></li>
+        <% if logged_in? %>
+          <li class="nav-link"><%= link_to "求人記事一覧", :articles, class: "blackbrown f-size-header"%></li>
+          <li class="nav-link"><%= link_to "通知一覧", "#", class: "blackbrown f-size-header"%></li>
+          <li class="nav-link"><%= link_to "ログアウト", logout_path, method: :delete, class: "blackbrown f-size-header"%></li>
+        <% else %>
+          <li class="nav-link"><%= link_to "ログイン", login_path, class: "blackbrown f-size-header"%></li>
+        <% end %>
       </ul>
     </div>
   </nav>

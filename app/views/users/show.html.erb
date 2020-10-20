@@ -1,7 +1,17 @@
-<% @page_title = "#{@user.name}さんのページ" %>
-<h4><%= @page_title %></h4>
-
-<div class="row">
+<% provide(:title, "#{@user.name}さんのページ") %>
+<div class="row align-items-center justify-content-center">
+  <div class="col-md-4">
+    <h4><%= "#{@user.name}さんのページ" %></h4>
+  </div>
+  <div class="col-md-4">
+    <% if @user == current_user %>
+      <div class="profile-btn">
+        <%= link_to "登録情報編集", [:edit, @user], class: "btn btn-info" %>
+      </div>
+    <% end %>
+  </div>
+</div>
+<div class="row justify-content-center">
   <div class="col-md-4">
     <div class="pict">
       <% if @user.avatar.attached? %> 
@@ -9,15 +19,11 @@
       <% end %>
     </div>
   </div>
-  <div class="col-md-8 text-left">
+  <div class="col-md-4 text-left">
     <div class="user-info">
       <h3><%= @user.name %></h3>
       <h4><%= @user.company_name %></h4>
-      <% if @user == current_user %>
-        <div class="profile-btn">
-          <%= link_to "登録情報編集", :user, class: "btn btn-default" %>
-        </div>
-      <% end %>
+      <h5><%= @user.website %></h5>
     </div>
   </div>
 </div>

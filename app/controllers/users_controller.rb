@@ -14,6 +14,7 @@ class UsersController < ApplicationController
   def create
     @user = User.new(user_params)
     if @user.save
+      login(params[:user][:email], params[:user][:password])
       redirect_to @user, notice: "ユーザー登録しました"
     else
       render "new"
@@ -21,9 +22,18 @@ class UsersController < ApplicationController
   end
 
   def update
+    @user = User.find(params[:id])
+    if @user.update(user_params)
+      redirect_to @user, notice: "ユーザー情報を更新しました"
+    else
+      render "edit"
+    end
   end
 
   def destroy
+    @user = User.find(params[:id])
+    @user.destroy
+    redirect_to :user, notice: "ユーザーを削除しました"
   end
 
   private
