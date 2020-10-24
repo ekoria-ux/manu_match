@@ -1,36 +1,50 @@
-<%= render "shared/error_messages", object: @article %>
+<div class="form-group">
+  <%= form.label :title, class: "form-label" %>
+  <%= form.text_field :title, class: "form-control" %>
+</div>
 
-<table>
-  <tr>
-    <th><%= form.label :title %></th>
-    <td><%= form.text_field :title %></td>
-  </tr>
-  <tr>
-    <th><%= form.label :body %></th>
-    <td><%= form.text_area :body %></td>
-  </tr>
-  <tr>
-    <th><%= form.label :date_hired_from, for: "article_date_hired_from_li" %></th>
-    <td><%= form.datetime_select :date_hired_from, start_year: 2020, end_year:Time.current.year + 1, use_month_number: true %></td>
-  </tr>
-  <tr>
-    <th><%= form.label :date_hired_to, for: "article_date_hired_to_li" %></th>
-    <td><%= form.datetime_select :date_hired_to, start_year: 2020, end_year:Time.current.year + 1, use_month_number: true %></td>
-  </tr>
-  <tr>
-    <th><%= form.label :area %></th>
-    <td><%= form.text_field :area %></td>
-  </tr>
-  <tr>
-    <th><%= form.label :category %></th>
-    <td><%= form.text_field :category %></td>
-  </tr>
-  <tr>
-    <th><%= form.label :skill%></th>
-    <td><%= form.text_area :skill %></td>
-  </tr>
-  <tr>
-    <th><%= form.label :remark%></th>
-    <td><%= form.text_area :remark %></td>
-  </tr> 
-</table>
+<div class="form-group">
+  <%= form.label :body, class: "form-label" %>
+  <%= form.text_area :body, class: "form-control" %>
+</div>
+
+<div class="form-group">
+  <%= form.label :date_hired_from, class: "form-label" %>
+  <%= form.date_select :date_hired_from, start_year: 2020, end_year:Time.current.year + 1, use_month_number: true, class: "form-control" %>
+</div>
+
+<div class="form-group">
+  <%= form.label :date_hired_to, class: "form-label" %>
+  <%= form.date_select :date_hired_to, start_year: 2020, end_year:Time.current.year + 1, use_month_number: true, class: "form-control" %>
+</div>
+
+<div class="form-group">
+  <%= form.label :area, for: "select_area", class: "form-label" %>
+  <%= form.select :area, OPTION_AREA, {}, { id: "select_area", class: "form-control" } %>
+</div>
+
+<div class="form-group">
+  <%= form.label :category, for: "select_category", class: "form-label" %>
+  <%= form.select :category, OPTION_CATEGORY, {}, { id: "select_category", class: "form-control" } %>
+</div>
+
+<div class="form-group">
+  <%= form.label :e_count, class: "form-label" %>
+  <%= form.number_field :e_count, min:1,max:100, class: "form-control" %>
+</div>
+
+<div class="form-group">
+  <%= form.label :skill, class: "form-label" %>
+  <%= form.text_area :skill, class: "form-control" %>
+</div>
+
+<div class="form-group">
+  <%= form.label :remark, class: "form-label" %>
+  <%= form.text_area :remark, class: "form-control" %>
+</div>
+
+<div class="form-group">
+  <%= form.label :expired_at, class: "form-label" %>
+  <%= form.datetime_select :expired_at, start_year: 2020, end_year:Time.current.year + 1, use_month_number: true, class: "form-control" %>
+</div>
+ 

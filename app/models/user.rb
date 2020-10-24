@@ -1,5 +1,6 @@
 class User < ApplicationRecord
   authenticates_with_sorcery!
+  has_many :articles, dependent: :destroy
   has_one_attached :avatar
   before_save { self.email = email.downcase }
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i.freeze
@@ -29,5 +30,9 @@ class User < ApplicationRecord
       end
       rel
     end
+  end
+
+  def profile_avatar
+    avatar.variant(resize_to_fill: [150, 150])
   end
 end

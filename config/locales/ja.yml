@@ -59,5 +59,16 @@ ja:
         website: "ウェブサイト"
         phone_number: "電話番号"
         avatar: "プロフィール画像"
+      article:
+        title: "タイトル"
+        body: "内容"
+        date_hired_from: "開始日"
+        date_hired_to: "終了日"
+        area: "地域"
+        category: "業種"
+        skill: "必要技能"
+        remark: "備考"
+        e_count: "必要人数"
+        expired_at: "掲載期限"
     models:
       user: "ユーザ"

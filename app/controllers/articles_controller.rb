@@ -18,9 +18,9 @@ class ArticlesController < ApplicationController
   end
 
   def create
-    @article = Article.new(params[:article])
+    @article = current_user.articles.build(article_params)
     if @article.save
-      redirect to @article, notice: "記事を登録しました"
+      redirect_to @article, notice: "記事を登録しました"
     else
       render "new"
     end
@@ -28,7 +28,7 @@ class ArticlesController < ApplicationController
 
   def update
     @article = Article.find(params[:id])
-    @article.assign_attributes(params[:article])
+    @article.assign_attributes(article_params)
     if @article.save
       redirect_to @article, notice: "記事を更新しました"
     else
@@ -40,5 +40,12 @@ class ArticlesController < ApplicationController
     @article = Article.find(params[:id])
     @article.destroy
     redirect_to :articles
+  end
+
+  private
+
+  def article_params
+    params.require(:article).permit(:title, :body, :date_hired_from, :date_hired_to,
+                                    :area, :category, :remark, :skill, :e_count, :expired_at)
   end
 end

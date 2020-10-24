@@ -1,18 +1,16 @@
-<% @page_title = @article.title %>
-<h1><%= @page_title %></h1>
+<% provide(:title, "#{@article.title}の詳細") %>
 
-<% if current_member %>
-  <div class="toolbar"><%= link_to "編集",
-  [:edit, @article] %></div>
+<% if current_user == @article.user  %>
+  <div class="row justify-content-end"><%= link_to "編集", [:edit, @article] %></div>
 <% end %>
 
-<table>
+<table class="table">
   <tr>
-    <th>タイトル</th>
+    <th><%= Article.human_attribute_name(:title) %></th>
     <td><%= @article.title %></td>
   </tr>
   <tr>
-    <th>本文</th>
+    <th><%= Article.human_attribute_name(:body) %></th>
     <td><%= simple_format(@article.body) %></td>
   </tr>
   <tr>
@@ -20,20 +18,32 @@
     <td><%= @article.date_hired_from %>〜<%= @article.date_hired_to %></td>
   </tr>
   <tr>
-    <th>地域</th>
+    <th><%= Article.human_attribute_name(:area) %></th>
     <td><%= @article.area %></td>
   </tr>
   <tr>
-    <th>業種</th>
+    <th><%= Article.human_attribute_name(:category) %></th>
     <td><%= @article.category %></td>
   </tr>
   <tr>
-    <th>必要スキル</th>
+    <th><%= Article.human_attribute_name(:e_count) %></th>
+    <td><%= @article.e_count %></td>
+  </tr>
+  <tr>
+    <th><%= Article.human_attribute_name(:skill) %></th>
     <td><%= simple_format(@article.skill) %></td>
   </tr>
   <tr>
-    <th>備考</th>
+    <th><%= Article.human_attribute_name(:remark) %></th>
     <td><%= simple_format(@article.remark) %></td>
+  </tr> 
+  <tr>
+    <th><%= User.human_attribute_name(:company_name) %></th>
+    <td><%= @article.user.company_name %></td>
+  </tr> 
+  <tr>
+    <th><%= Article.human_attribute_name(:expired_at) %></th>
+    <td><%= @article.expired_at.strftime("%Y-%m-%d %H:%M") %></td>
   </tr> 
 </table>
 

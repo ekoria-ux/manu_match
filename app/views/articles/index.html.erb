@@ -1,39 +1,39 @@
-<% @page_title = "求人記事一覧" %>
-<h4><%= @page_title %></h4>
+<% provide(:title, "求人記事一覧") %>
 
 <div class="row">
-  <% if @articles.present? %>
-    <table class = "list row col-8">
-      <thead>
-        <tr>
-          <th class = "col">タイトル</th>
-          <th class = "col">日時</th>
-          <th class = "col">業種</th>
-          <th class = "col">地域</th>
-          <th class = "col">操作</th>
-        </tr>
-      </thead>
-      <tbody>
-        <% @articles.each do |article| %>
+  <div class="col-md-8">
+    <h4>求人記事一覧</h4>
+    <% if @articles.present? %>
+      <table class = "table">
+        <thead>
           <tr>
-            <td><%= link_to article.title, article %></td>
-            <td><%= article.created_at.strftime("%Y/%m/%d") %></td>
-            <td><%= article.category %></td>
-            <td><%= article.area %></td>
-            <td>
-              <%= link_to "編集", [:edit, article] %> |
-              <%= link_to "削除", article, method: :delete, data: { confirm: "本当に削除しますか？" } %>
-            </td>
+            <th>投稿日</th>
+            <th><%= Article.human_attribute_name(:title) %></th>
+            <th></th>
           </tr>
-        <% end %>
-      </tbody>
-    </table>
-  <% else %>
-    <div class="col-8">
-      <p>記事がありません</p>
-    </div>
-  <% end %>
-  <div class="col-4">
+        </thead>
+        <tbody>
+          <% @articles.each do |article| %>
+            <tr>
+              <td><%= article.created_at.strftime("%m-%d") %></td>
+              <td><%= link_to article.title, article %></td>
+              <td>
+                <% if current_user == article.user %>
+                  <%= link_to "編集", [:edit, article] %> |
+                  <%= link_to "削除", article, method: :delete, data: { confirm: "本当に削除しますか？" } %>
+                <% end %>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    <% else %>
+      <div>
+        <p>記事がありません</p>
+      </div>
+    <% end %>
+  </div>
+  <div class="col-md-4">
     <%= render "shared/sidebar" %>
   </div>
 </div>
