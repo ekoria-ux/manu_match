@@ -8,15 +8,22 @@
 
       <div class="form-group">
         <%= f.label :email, class: "form-label" %>
-        <%= f.email_field :email, class: 'form-control' %>
+        <%= f.email_field :email, class: "form-control" %>
       </div>
 
       <div class="form-group">
         <%= f.label :password, class: "form-label" %>
-        <%= f.password_field :password, class: 'form-control' %>
+        <%= f.password_field :password, class: "form-control" %>
       </div>
 
-      <%= f.submit "ログイン", class: "btn btn-success" %>
+      <div class="form-group form-check form-check-inline">
+        <%= f.check_box :remember_me, class: "form-check-input" %>
+        <%= f.label :remember_me, "ログイン状態を保持", class: "form-check-label" %>
+      </div>
+
+      <div class="form-group">
+        <%= f.submit "ログイン", class: "btn btn-success" %>
+      </div>
     <% end %>
 
     <p><%= link_to "登録がまだの方はこちら", signup_path %></p>
