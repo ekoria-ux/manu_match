@@ -48,12 +48,15 @@ ja:
               too_long: "は%{count}文字以下に設定して下さい。"
               invalid: "は有効でありません。"
               confirmation: "が内容とあっていません。"
+      messages:
+        wrong: "が正しくありません"
+
     attributes:
       user:
-        current_password: "現在のパスワード"
         name: "名前"
         company_name: "会社名"
         email: "メールアドレス"
+        current_password: "現在のパスワード"
         password: "パスワード"
         password_confirmation: "パスワード（確認用）"
         website: "ウェブサイト"

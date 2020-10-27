@@ -35,15 +35,16 @@
   <%= form.telephone_field :phone_number, class: "form-control" %>
 </div>
 
-<div class="form-group">
-  <small class="form-label">＊</small>
-  <%= form.label :password, class: "form-label" %>
-  <%= form.password_field :password, autocomplete: "new-password", class: "form-control" %>
-</div>
-
-<div class="form-group">
-  <small class="form-label">＊</small>
-  <%= form.label :password_confirmation, class: "form-label" %>
-  <%= form.password_field :password_confirmation, autocomplete: "new-password", class: "form-control" %>
-</div>
-
+<% if user.new_record? %>
+  <div class="form-group">
+    <small class="form-label">＊</small>
+    <%= form.label :password, class: "form-label" %>
+    <%= form.password_field :password, autocomplete: "new-password", class: "form-control" %>
+  </div>
+  
+  <div class="form-group">
+    <small class="form-label">＊</small>
+    <%= form.label :password_confirmation, class: "form-label" %>
+    <%= form.password_field :password_confirmation, autocomplete: "new-password", class: "form-control" %>
+  </div>
+<% end %>

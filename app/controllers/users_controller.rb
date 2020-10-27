@@ -1,4 +1,6 @@
 class UsersController < ApplicationController
+  before_action :require_login, except: [:new, :create]
+
   def show
     @user = User.find(params[:id])
   end
@@ -15,8 +17,9 @@ class UsersController < ApplicationController
     @user = User.new(user_params)
     if @user.save
       login(params[:user][:email], params[:user][:password])
-      redirect_to @user, notice: "ユーザー登録しました"
+      redirect_to @user, flash: { success: "ユーザー登録しました" }
     else
+      flash.now[:danger] = "登録に失敗しました"
       render "new"
     end
   end
@@ -24,8 +27,9 @@ class UsersController < ApplicationController
   def update
     @user = User.find(params[:id])
     if @user.update(user_params)
-      redirect_to @user, notice: "ユーザー情報を更新しました"
+      redirect_to @user, flash: { success: "ユーザー情報を更新しました" }
     else
+      flash.now[:danger] = "更新に失敗しました"
       render "edit"
     end
   end
@@ -33,7 +37,7 @@ class UsersController < ApplicationController
   def destroy
     @user = User.find(params[:id])
     @user.destroy
-    redirect_to :user, notice: "ユーザーを削除しました"
+    redirect_to :user, flash: { success: "ユーザーを削除しました" }
   end
 
   private

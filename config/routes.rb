@@ -10,4 +10,7 @@ Rails.application.routes.draw do
   resources :users do
     collection { get "search" }
   end
+  resource :session, only: [:new, :create, :destroy]
+  resource :account, only: [:show, :edit, :update]
+  resource :password, only: [:show, :edit, :update]
 end

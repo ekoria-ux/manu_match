@@ -1,0 +1,16 @@
+<div class="row justify-content-center">
+  <div class="col-md-4">
+    <div>
+      <% if user.avatar.attached? %> 
+        <%= image_tag user.profile_avatar, class: "profile-pic" %>
+      <% end %>
+    </div>
+  </div>
+  <div class="col-md-4 text-left">
+    <div class="user-info">
+      <h3><%= user.name %></h3>
+      <h4><%= user.company_name %></h4>
+      <h5><%= user.website %></h5>
+    </div>
+  </div>
+</div>

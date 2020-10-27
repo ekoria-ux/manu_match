@@ -14,9 +14,7 @@
   <body>
     <div class = "container">
       <%= render "shared/header" %>
-      <% flash.each do |message_type, message| %>
-        <div class="alert alert-<%= message_type %>"><%= message %></div>
-      <% end %>
+      <%= render "shared/flash" %>
       <main>
         <%= yield %>
       </main>

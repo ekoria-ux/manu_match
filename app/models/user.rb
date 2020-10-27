@@ -12,6 +12,7 @@ class User < ApplicationRecord
                     length: { maximum: 100 },
                     format: { with: VALID_EMAIL_REGEX },
                     uniqueness: true
+  attr_accessor :current_password
   validates :password, presence: true,
                        length: { minimum: 6 },
                        if: -> { new_record? || changes[:crypted_password] }

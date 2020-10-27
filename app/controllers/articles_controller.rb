@@ -1,5 +1,5 @@
 class ArticlesController < ApplicationController
-  # before_action :require_login, except: [:index]
+  before_action :require_login, except: [:index]
 
   def index
     @articles = Article.order(created_at: :desc)
@@ -20,7 +20,7 @@ class ArticlesController < ApplicationController
   def create
     @article = current_user.articles.build(article_params)
     if @article.save
-      redirect_to @article, notice: "記事を登録しました"
+      redirect_to @article, flash: { success: "記事を登録しました" }
     else
       render "new"
     end
@@ -30,7 +30,7 @@ class ArticlesController < ApplicationController
     @article = Article.find(params[:id])
     @article.assign_attributes(article_params)
     if @article.save
-      redirect_to @article, notice: "記事を更新しました"
+      redirect_to @article, flash: { success: "記事を更新しました" }
     else
       render "edit"
     end
@@ -39,7 +39,7 @@ class ArticlesController < ApplicationController
   def destroy
     @article = Article.find(params[:id])
     @article.destroy
-    redirect_to :articles
+    redirect_to :articles, flash: { success: "記事を削除しました" }
   end
 
   private

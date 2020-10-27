@@ -1,29 +1,15 @@
 <% provide(:title, "#{@user.name}さんのページ") %>
+
 <div class="row align-items-center justify-content-center">
   <div class="col-md-4">
-    <h4><%= "#{@user.name}さんのページ" %></h4>
+    <h4><%= yield(:title) %></h4>
   </div>
   <div class="col-md-4">
     <% if @user == current_user %>
       <div class="profile-btn">
-        <%= link_to "登録情報編集", [:edit, @user], class: "btn btn-info" %>
+        <%= link_to "情報編集", [:edit, @user], class: "btn btn-info" %>
       </div>
     <% end %>
   </div>
 </div>
-<div class="row justify-content-center">
-  <div class="col-md-4">
-    <div>
-      <% if @user.avatar.attached? %> 
-        <%= image_tag @user.profile_avatar, class: "profile-pic" %>
-      <% end %>
-    </div>
-  </div>
-  <div class="col-md-4 text-left">
-    <div class="user-info">
-      <h3><%= @user.name %></h3>
-      <h4><%= @user.company_name %></h4>
-      <h5><%= @user.website %></h5>
-    </div>
-  </div>
-</div>
+<%= render "user_body", user: @user %>
