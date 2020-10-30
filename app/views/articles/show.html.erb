@@ -1,7 +1,10 @@
 <% provide(:title, "#{@article.title}の詳細") %>
 
-<% if current_user == @article.user  %>
-  <div class="row justify-content-end"><%= link_to "編集", [:edit, @article] %></div>
+<% if current_user == @article.author  %>
+  <div class="row justify-content-end">
+    <%= link_to "編集", [:edit, @article] %> |
+    <%= link_to "削除", @article, method: :delete, data: { confirm: "本当に削除しますか？" } %>
+  </div>
 <% end %>
 
 <table class="table">
@@ -39,7 +42,7 @@
   </tr> 
   <tr>
     <th><%= User.human_attribute_name(:company_name) %></th>
-    <td><%= @article.user.company_name %></td>
+    <td><%= @article.author.company_name %></td>
   </tr> 
   <tr>
     <th><%= Article.human_attribute_name(:expired_at) %></th>

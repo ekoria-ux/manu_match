@@ -50,6 +50,7 @@ ja:
               confirmation: "が内容とあっていません。"
       messages:
         wrong: "が正しくありません"
+        hired_to_old: "は開始日より新しい日付にしてください"
 
     attributes:
       user:
@@ -73,5 +74,8 @@ ja:
         remark: "備考"
         e_count: "必要人数"
         expired_at: "掲載期限"
+        status: "状態"
+        status_draft: "下書き"
+        status_public: "公開"
     models:
       user: "ユーザ"

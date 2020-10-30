@@ -1,8 +1,9 @@
 <aside id="sidebar">
   <h4>新着の求人記事</h4>
+  <% articles = Article.visible.published.order(created_at: :desc).limit(5) %>
   <ul>
-    <% 5.times do |i| %>
-      <li><%= link_to "新着", "#" %></li>
+    <% articles.each do |article| %>
+      <li><%= article.created_at.strftime("%m/%d") %> <%= link_to article.title, article %></li>
     <% end %>
   </ul>
 </aside>

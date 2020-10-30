@@ -8,7 +8,7 @@ class SessionsController < ApplicationController
     user = login(
       params[:session][:email], params[:session][:password], params[:session][:remember_me]
     )
-    # params[:session][:remember_me] == '1' ? remember_me! : forget_me!
+    params[:session][:remember_me] == '1' ? remember_me! : forget_me!
     if user.present?
       redirect_back_or_to :account, success: "ログインしました"
     else

@@ -43,7 +43,8 @@ class UsersController < ApplicationController
   private
 
   def user_params
-    params.require(:user).permit(:name, :company_name, :avatar, :email, :phone_number,
-                                 :website, :password, :password_confirmation, :remember_me)
+    attrs = [:name, :company_name, :avatar, :email, :phone_number, :website, :remember_me]
+    attrs << [:password, :password_confirmation] if params[:action] == "create"
+    params.require(:user).permit(attrs)
   end
 end

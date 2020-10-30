@@ -1,0 +1,17 @@
+<ul class="row justify-content-end small">
+  <% if current_user %>
+    <li class="ml-2"><%= Article.status_text(article.status) %></li>
+    <% if current_user == article.author %>
+      <li class="ml-2">
+        <%= link_to "編集", [:edit, article] %>
+        <%= link_to "削除", article, method: :delete, data: { confirm: "本当に削除しますか？" } %>
+      </li>
+    <% end %>
+  <% end %>
+  <li class="ml-2">
+    by <%= article.author.company_name %>
+  </li>
+  <li class="ml-2">
+    <%= article.created_at.strftime("%m/%d") %>
+  </li>
+</ul>
