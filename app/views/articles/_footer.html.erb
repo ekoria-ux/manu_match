@@ -6,11 +6,15 @@
         <%= link_to "編集", [:edit, article] %>
         <%= link_to "削除", article, method: :delete, data: { confirm: "本当に削除しますか？" } %>
       </li>
+      <li class="ml-2">
+        by <%= article.author.company_name %>
+      </li>
+    <% else %>
+      <li class="ml-2">
+        by <%= link_to article.author.company_name, account_path(article.author) %>
+      </li>
     <% end %>
   <% end %>
-  <li class="ml-2">
-    by <%= article.author.company_name %>
-  </li>
   <li class="ml-2">
     <%= article.created_at.strftime("%m/%d") %>
   </li>

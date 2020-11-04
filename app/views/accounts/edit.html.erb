@@ -1,12 +1,12 @@
 <% provide(:title, "アカウント情報変更") %>
 
 <%= render "shared/error_messages", object: @user %>
-<div class="row justify-content-end"><%= link_to "マイアカウントに戻る", :account %></div>
 
 <div class="row justify-content-center">
   <div class="col-md-6 col-md-offset-3">
     <h4><%= yield(:title) %></h4>
-    <%= form_for @user, as: "account", url: :account do |form| %>
+    <div class="row mb-2 justify-content-end"><%= link_to "マイページに戻る", :account %></div>
+    <%= form_with(model: @user, scope: "account", url: :account, local: true) do |form| %>
       <%= render "shared/user_form", form: form, user: @user %>
       <div><%= form.submit "変更", class: "btn btn-success" %></div>
     <% end %>

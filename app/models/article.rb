@@ -8,10 +8,7 @@ class Article < ApplicationRecord
   validates :status, inclusion: { in: STATUS_VALUES }
   validate :check_date
 
-  scope :visible, -> do
-    now = Time.current
-    where("expired_at > ?", now)
-  end
+  scope :visible, -> { where("expired_at > ?", Time.current) }
   scope :published, -> { where("status <> ?", "draft") }
 
   def check_date

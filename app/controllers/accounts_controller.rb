@@ -1,5 +1,7 @@
 class AccountsController < ApplicationController
+  include Pagy::Backend
   before_action :require_login
+  
   def show
     @user = current_user
   end
@@ -16,6 +18,20 @@ class AccountsController < ApplicationController
       flash.now[:danger] = "更新に失敗しました"
       render "edit"
     end
+  end
+
+  def following
+    @title = "フォロー中"
+    @user  = current_user
+    @pagy, @users = pagy(@user.following)
+    render 'show_follow'
+  end
+
+  def followers
+    @title = "フォロワー"
+    @user  = current_user
+    @pagy, @users = pagy(@user.followers)
+    render 'show_follow'
   end
 
   private

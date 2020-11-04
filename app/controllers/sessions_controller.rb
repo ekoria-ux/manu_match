@@ -5,11 +5,12 @@ class SessionsController < ApplicationController
   end
 
   def create
+    user = User.find_by(email: params[:session][:email])
     user = login(
       params[:session][:email], params[:session][:password], params[:session][:remember_me]
     )
-    params[:session][:remember_me] == '1' ? remember_me! : forget_me!
     if user.present?
+      params[:session][:remember_me] == '1' ? remember_me! : force_forget_me!
       redirect_back_or_to :account, success: "ログインしました"
     else
       flash.now[:danger] = "ログインに失敗しました"

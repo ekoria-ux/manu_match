@@ -9,8 +9,13 @@ Rails.application.routes.draw do
   resources :articles
   resources :users do
     collection { get "search" }
+    collection { get :following, :followers }
   end
+  resources :relationships, only: [:create, :destroy]
+
   resource :session, only: [:new, :create, :destroy]
-  resource :account, only: [:show, :edit, :update]
+  resource :account, only: [:show, :edit, :update] do
+    get :following, :followers
+  end
   resource :password, only: [:show, :edit, :update]
 end

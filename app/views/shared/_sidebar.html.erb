@@ -3,7 +3,7 @@
   <% articles = Article.visible.published.order(created_at: :desc).limit(5) %>
   <ul>
     <% articles.each do |article| %>
-      <li><%= article.created_at.strftime("%m/%d") %> <%= link_to article.title, article %></li>
+      <li><%= article.created_at.strftime("%m/%d") %> <%= link_to truncate(article.title, length: 20), article %></li>
     <% end %>
   </ul>
 </aside>

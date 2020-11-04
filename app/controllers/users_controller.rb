@@ -1,6 +1,8 @@
 class UsersController < ApplicationController
+  include Pagy::Backend
   before_action :require_login, except: [:new, :create]
-
+  after_action :default_image, only: :create
+  
   def show
     @user = User.find(params[:id])
   end
@@ -17,7 +19,7 @@ class UsersController < ApplicationController
     @user = User.new(user_params)
     if @user.save
       login(params[:user][:email], params[:user][:password])
-      redirect_to @user, flash: { success: "ユーザー登録しました" }
+      redirect_to account_path, flash: { success: "ユーザー登録しました" }
     else
       flash.now[:danger] = "登録に失敗しました"
       render "new"
@@ -40,11 +42,34 @@ class UsersController < ApplicationController
     redirect_to :user, flash: { success: "ユーザーを削除しました" }
   end
 
+  def following
+    @title = "フォロー中"
+    @user  = User.find(params[:id])
+    @pagy, @users = pagy(@user.following)
+    render 'show_follow'
+  end
+
+  def followers
+    @title = "フォロワー"
+    @user  = User.find(params[:id])
+    @pagy,@users = pagy(@user.followers)
+    render 'show_follow'
+  end
+
   private
 
   def user_params
-    attrs = [:name, :company_name, :avatar, :email, :phone_number, :website, :remember_me]
+    attrs = [
+      :name, :company_name, :avatar, :email, :phone_number,
+      :website, :remember_me,
+    ]
     attrs << [:password, :password_confirmation] if params[:action] == "create"
     params.require(:user).permit(attrs)
+  end
+
+  def default_image
+    unless @user.avatar.attached?
+      @user.avatar.attach(io: File.open(Rails.root.join('app', 'assets', 'images', 'default-image.png')), filename: 'default-image.png', content_type: 'image/png')
+    end
   end
 end

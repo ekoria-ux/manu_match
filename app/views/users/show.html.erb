@@ -5,6 +5,7 @@
     <h4><%= yield(:title) %></h4>
   </div>
   <div class="col-md-4">
+    <%= render "follow_form", user: @user %>
     <% if @user == current_user %>
       <div class="profile-btn">
         <%= link_to "情報編集", [:edit, @user], class: "btn btn-info" %>
