@@ -11,7 +11,7 @@
       </li>
     <% else %>
       <li class="ml-2">
-        by <%= link_to article.author.company_name, account_path(article.author) %>
+        by <%= link_to article.author.company_name, user_path(article.author) %>
       </li>
     <% end %>
   <% end %>
