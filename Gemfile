@@ -58,6 +58,7 @@ group :development do
   gem 'spring'
   gem 'spring-watcher-listen'
   gem 'brakeman'
+  gem 'bullet'
 end
 
 group :production do

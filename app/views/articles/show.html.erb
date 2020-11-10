@@ -48,6 +48,12 @@
     <th><%= Article.human_attribute_name(:expired_at) %></th>
     <td><%= @article.expired_at.strftime("%Y-%m-%d %H:%M") %></td>
   </tr>
+  <% unless current_user == @article.author %>
+  <tr>
+    <th><%= Article.human_attribute_name(:favorite) %></th>
+    <td><%= render "articles/favorite_form", article: @article %></td>
+  </tr>
+  <% end %>
 </table>
 
 

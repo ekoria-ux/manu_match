@@ -4,6 +4,7 @@ class AccountsController < ApplicationController
   
   def show
     @user = current_user
+    @articles = @user.articles
   end
 
   def edit
@@ -23,14 +24,14 @@ class AccountsController < ApplicationController
   def following
     @title = "フォロー中"
     @user  = current_user
-    @pagy, @users = pagy(@user.following)
+    @pagy, @users = pagy(@user.following.with_attached_avatar)
     render 'show_follow'
   end
 
   def followers
     @title = "フォロワー"
     @user  = current_user
-    @pagy, @users = pagy(@user.followers)
+    @pagy, @users = pagy(@user.followers.with_attached_avatar)
     render 'show_follow'
   end
 

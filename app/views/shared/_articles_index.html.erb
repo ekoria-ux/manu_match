@@ -1,0 +1,27 @@
+<div class="row">
+  <div class="col-md">
+    <h4>記事一覧</h4>
+    <% if articles.present? %>
+      <div class="card-deck">
+        <% articles.each do |article| %>
+          <div class="col-md-4 mb-4">
+            <div class="card">
+              <div class="card-body">
+                <h6 class="card-title"><%= truncate(article.title, length: 8) %></h6>
+                <p class="card-text"><%= article.category %></p>
+                <% if controller.kind_of?(AccountsController) %>
+                  <p class="card-text"><%= Article.status_text(article.status) %></p>
+                <% end %>
+                <%= link_to "詳細を見る", article, class: "btn" %>
+              </div>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    <% else %>
+      <div>
+        <p>記事がありません</p>
+      </div>
+    <% end %>
+  </div>
+</div>

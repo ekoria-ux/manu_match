@@ -6,7 +6,9 @@ Rails.application.routes.draw do
   get    "/login",  to: "sessions#new"
   post   "/login",  to: "sessions#create"
   delete "/logout",  to: "sessions#destroy"
-  resources :articles
+  resources :articles do
+    resource :favorites, only: [:create, :destroy]
+  end
   resources :users do
     collection { get "search" }
     collection { get :following, :followers }
@@ -16,6 +18,7 @@ Rails.application.routes.draw do
   resource :session, only: [:new, :create, :destroy]
   resource :account, only: [:show, :edit, :update] do
     get :following, :followers
+    get :favorites
   end
   resource :password, only: [:show, :edit, :update]
 end

@@ -1,5 +1,6 @@
 class Article < ApplicationRecord
   belongs_to :author, class_name: "User", foreign_key: "user_id"
+  has_many :favorites, dependent: :destroy
   validates :title, :date_hired_from, :date_hired_to, :body, presence: true
   validates :title, length: { maximum: 200 }
   validates :body, length: { maximum: 2000 }
@@ -23,5 +24,9 @@ class Article < ApplicationRecord
     def status_options
       STATUS_VALUES.map { |status| [status_text(status), status] }
     end
+  end
+
+  def favorite_by?(user)
+    favorites.where(user_id: user.id).exists?
   end
 end

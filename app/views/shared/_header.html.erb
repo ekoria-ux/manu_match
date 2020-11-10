@@ -7,11 +7,15 @@
     <span class="navbar-toggler-icon"></span>
   </button>
     <div class="collapse navbar-collapse justify-content-around" id="header-navbarToggler">
-      <ul class = "navbar-nav mt-lg-10">
+      <ul class = "navbar-nav mt-lg-10 d-flex align-items-center">
         <li class="nav-link"><%= link_to "トップ", :root, class: "blackbrown f-size-header"%></li>
         <% if logged_in? %>
           <li class="nav-link"><%= link_to "新規投稿", new_article_path, class: "blackbrown f-size-header"%></li>
-          <li class="nav-link"><%= link_to "求人記事一覧", :articles, class: "blackbrown f-size-header"%></li>
+          <li class="nav-link">
+            <%= link_to :articles, class: "blackbrown f-size-header" do %>
+              気になる<br>記事一覧
+            <% end %>
+          </li>
           <li class="nav-link"><%= link_to "通知一覧", "#", class: "blackbrown f-size-header"%></li>
           <li class="nav-link"><%= link_to "マイページ", :account, class: "blackbrown f-size-header"%></li>
           <li class="nav-link"><%= link_to "ログアウト", logout_path, method: :delete, class: "blackbrown f-size-header"%></li>

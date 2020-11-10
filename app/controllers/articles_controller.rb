@@ -1,8 +1,10 @@
 class ArticlesController < ApplicationController
+  include Pagy::Backend
   before_action :require_login
 
   def index
     @articles = Article.visible.order(created_at: :desc)
+    @pagy, @favorite_articles = pagy(current_user.favorite_articles.includes(:author).visible.order(created_at: :desc))
   end
 
   def show

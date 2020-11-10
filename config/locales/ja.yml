@@ -78,5 +78,6 @@ ja:
         status: "状態"
         status_draft: "下書き"
         status_public: "公開"
+        favorite: "気になる"
     models:
       user: "ユーザ"

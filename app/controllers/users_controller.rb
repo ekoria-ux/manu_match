@@ -1,10 +1,12 @@
 class UsersController < ApplicationController
   include Pagy::Backend
   before_action :require_login, except: [:new, :create]
+  before_action :correct_user, only: [:edit, :update]
   after_action :default_image, only: :create
   
   def show
     @user = User.find(params[:id])
+    @article = @user.articles
   end
 
   def new
@@ -71,5 +73,10 @@ class UsersController < ApplicationController
     unless @user.avatar.attached?
       @user.avatar.attach(io: File.open(Rails.root.join('app', 'assets', 'images', 'default-image.png')), filename: 'default-image.png', content_type: 'image/png')
     end
+  end
+
+  def correct_user
+    @user = User.find(params[:id])
+    redirect_to(root_url) unless current_user == @user
   end
 end
