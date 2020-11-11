@@ -1,0 +1,18 @@
+<div class="row">
+  <% if comments.any? %>
+    <% comments.each do |comment| %>
+      <div class="col-md-3 inline mb-2">
+        <%= image_tag comment.user.profile_avatar(30), class: "profile-pic" %>
+        <%= comment.user.name %>
+        <% if current_user == comment.user  %>
+          <%= link_to "コメント削除", article_comments_path(article), method: :delete, class: "small", data: { confirm: "本当に削除しますか？" } %>
+        <% end %>
+      </div>
+      <div class="col-md-9 break">
+        <%= comment.content %>
+      </div>
+    <% end %>
+  <% else %>
+    <p>まだコメントはありません</p>
+  <% end %>
+</div>

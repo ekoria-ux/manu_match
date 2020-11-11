@@ -10,11 +10,11 @@
 <table class="table">
   <tr>
     <th><%= Article.human_attribute_name(:title) %></th>
-    <td><%= @article.title %></td>
+    <td class="break"><%= simple_format(@article.title) %></td>
   </tr>
   <tr>
     <th><%= Article.human_attribute_name(:body) %></th>
-    <td><%= simple_format(@article.body) %></td>
+    <td class="break"><%= simple_format(@article.body) %></td>
   </tr>
   <tr>
     <th>期間</th>
@@ -34,11 +34,11 @@
   </tr>
   <tr>
     <th><%= Article.human_attribute_name(:skill) %></th>
-    <td><%= simple_format(@article.skill) %></td>
+    <td class="break"><%= simple_format(@article.skill) %></td>
   </tr>
   <tr>
     <th><%= Article.human_attribute_name(:remark) %></th>
-    <td><%= simple_format(@article.remark) %></td>
+    <td class="break"><%= simple_format(@article.remark) %></td>
   </tr> 
   <tr>
     <th><%= User.human_attribute_name(:company_name) %></th>
@@ -55,5 +55,5 @@
   </tr>
   <% end %>
 </table>
-
-
+<%= render "shared/comment_form", article: @article, comment: @comment %>
+<%= render "shared/comment_index", user: current_user, comments: @comments, article: @article %>

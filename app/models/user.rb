@@ -9,6 +9,7 @@ class User < ApplicationRecord
   has_many :followers, through: :passive_relationships, source: :follower
   has_many :favorites, dependent: :destroy
   has_many :favorite_articles, through: :favorites, source: :article
+  has_many :comments, dependent: :destroy
   has_one_attached :avatar
   before_save { self.email = email.downcase }
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i.freeze

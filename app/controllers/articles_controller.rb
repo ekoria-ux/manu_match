@@ -9,6 +9,8 @@ class ArticlesController < ApplicationController
 
   def show
     @article = Article.find(params[:id])
+    @comments = @article.comments.includes([:user]).order(created_at: :desc)
+    @comment = Comment.new
   end
 
   def new

@@ -167,6 +167,10 @@ li {
   padding: 3px;
 }
 
+.break {
+  word-break: break-all;   
+}
+
 /* typography */
 
 h1, h2, h3, h4, h5, h6 {
@@ -175,6 +179,13 @@ h1, h2, h3, h4, h5, h6 {
 
 h4 {
   margin: 30px 0;
+}
+
+p {
+  width: 70%;
+  .break {
+    word-break: break-all;
+  }
 }
 
 /* flash */
@@ -255,4 +266,12 @@ footer {
 
 .form-check-label {
   font-size: 0.8rem;
+}
+
+/* table */
+td {
+  width: 90%;
+  .break {
+    word-break: break-all;   
+  }
 }

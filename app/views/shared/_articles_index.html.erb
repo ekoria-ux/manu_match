@@ -11,6 +11,8 @@
                 <p class="card-text"><%= article.category %></p>
                 <% if controller.kind_of?(AccountsController) %>
                   <p class="card-text"><%= Article.status_text(article.status) %></p>
+                <% elsif controller.kind_of?(StaticPagesController)%>
+                  <p class="card-text"><%= article.author.company_name %></p>
                 <% end %>
                 <%= link_to "詳細を見る", article, class: "btn" %>
               </div>

@@ -8,6 +8,7 @@ Rails.application.routes.draw do
   delete "/logout",  to: "sessions#destroy"
   resources :articles do
     resource :favorites, only: [:create, :destroy]
+    resource :comments, only: [:create, :destroy]
   end
   resources :users do
     collection { get "search" }
@@ -19,6 +20,7 @@ Rails.application.routes.draw do
   resource :account, only: [:show, :edit, :update] do
     get :following, :followers
     get :favorites
+    get :comments
   end
   resource :password, only: [:show, :edit, :update]
 end
