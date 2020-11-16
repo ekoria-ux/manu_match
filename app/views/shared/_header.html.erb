@@ -1,5 +1,5 @@
 <header>
-  <nav class="navbar fixed-top navbar-expand-lg mr-auto ml-auto">
+  <nav class="navbar navbar-expand-lg mr-auto ml-auto">
     <div class="navbar-brand">
       <%= link_to "manu-Match", :root, id: "logo", class: "blackbrown"%>
     </div>
@@ -16,7 +16,15 @@
               気になる<br>記事一覧
             <% end %>
           </li>
-          <li class="nav-link"><%= link_to "通知一覧", "#", class: "blackbrown f-size-header"%></li>
+          <li class="nav-link">
+            <%= link_to "通知一覧", notifications_path, class: "blackbrown f-size-header"%>
+            <% if unchecked_notifications.any? %>
+              <span class="fa-layers fa-fw">
+                <i class="fas fa-certificate fa-lg"></i>
+                <span class="fa-layers-text fa-inverse" data-fa-transform="shrink-9 rotate--30" style="font-weight:500">NEW</span>
+              </span>
+            <% end %>
+          </li>
           <li class="nav-link"><%= link_to "マイページ", :account, class: "blackbrown f-size-header"%></li>
           <li class="nav-link"><%= link_to "ログアウト", logout_path, method: :delete, class: "blackbrown f-size-header"%></li>
         <% else %>

@@ -4,7 +4,7 @@ class AccountsController < ApplicationController
   
   def show
     @user = current_user
-    @articles = @user.articles.order(created_at: :desc)
+    @pagy, @articles = pagy(@user.articles.order(created_at: :desc))
   end
 
   def edit

@@ -10,14 +10,14 @@
 
 /* bootstrap */
 
-$bgDefault      : #f7bc47;
+$bgDefault      : #fcb16b;
 $bgHighlight    : #53ad44;
 $coDefault      : #000000;
 $coHighlight    : #ffffff;
 $dropDown       : false;
 .navbar {
   background-color: $bgDefault;
-  width: 90%;
+  width: 100%;
   border-radius: 0.5em;
   .navbar-brand {
     color: $coDefault;
@@ -118,6 +118,10 @@ $dropDown       : false;
 .btn {
   border: 2px solid black;
 }
+.btn-primary {
+  background-color: $bgDefault;
+  color: black;
+}
 
 /* miscellaneous */
 
@@ -132,11 +136,37 @@ $dropDown       : false;
 /* universal */
 
 body {
-  padding-top: 100px;
+  display: flex;
+  flex-flow: column;
+  min-height: 100vh;
+}
+
+main {
+  flex: 1;
 }
 
 section {
   overflow: auto;
+  background-image: image-url('PAK85_kirikotosupana20141028182225.jpg');
+  background-size: cover;
+  border-radius: 0.5em;
+  color: $bgDefault;
+  min-height: 500px;
+  .intro {
+    li {
+      margin: 10px 0;
+    }
+  }
+  @media (min-width: 415px) {
+    .intro {
+      margin-left: 10px;
+    }
+  }
+  @media (min-width: 960px) {
+    .intro {
+      margin-left: 50px;
+    }
+  }
 }
 
 textarea {
@@ -181,8 +211,12 @@ h4 {
   margin: 30px 0;
 }
 
+h6 {
+  margin: 50px 0 20px 0;
+}
+
 p {
-  width: 70%;
+  width: 90%;
   .break {
     word-break: break-all;
   }
@@ -274,4 +308,23 @@ td {
   .break {
     word-break: break-all;   
   }
+}
+
+/* pagenation */
+
+@media (min-width: 415px) {
+  .p-bottom {
+    min-width: 460px;
+  }
+}
+
+@media (min-width: 960px) {
+  .p-bottom {
+    min-width: 960px;
+  }
+}
+
+/* about */
+li {
+  margin: 10px 0;
 }

@@ -55,5 +55,7 @@
   </tr>
   <% end %>
 </table>
-<%= render "shared/comment_form", article: @article, comment: @comment %>
-<%= render "shared/comment_index", user: current_user, comments: @comments, article: @article %>
+<%= render "comments/form", article: @article, comment: @comment %>
+<div id="comment_area">
+  <%= render "comments/index", comments: @comments %>
+</div>

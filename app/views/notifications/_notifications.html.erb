@@ -1,0 +1,22 @@
+<% notifications.each do |notification| %>
+  <div class="offset-md-2">
+    <div class="row inline-block">
+      <span><%= image_tag notification.visitor.profile_avatar(30), class: "profile-pic" %></span>
+        <div class="col">
+          <p><strong><%= link_to notification.visitor.name, user_path(notification.visitor) %></strong>さんが
+          <% case notification.action %>
+            <% when "favorite" then %>
+              あなたの<%= link_to "記事", article_path(notification.article) %>をお気に入りに登録しました
+            <% when "comment" then %>
+              <% if notification.article.user_id == notification.visited_id %>
+                あなたの<%= link_to "記事", article_path(notification.article) %>にコメントしました
+              <% end %>
+            <% when "follow" then %>
+              あなたをフォローしました
+          <% end %>
+          </p>
+        </div>
+      
+    </div>
+  </div>
+<% end %>

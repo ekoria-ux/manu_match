@@ -1,7 +1,7 @@
-<%= form_with(model: [article, comment], local: true) do |form| %>
+<%= form_with(model: [article, comment]) do |form| %>
   <div class="form-group row">
     <div class="col-md-10">
-      <%= form.text_field :content, placeholder: "コメント入力", class: "form-control"%>
+      <%= form.text_field :content, placeholder: "コメント入力", class: "form-control", id: "comment-content" %>
     </div>
     <div class="col">
       <%= form.submit "コメントする", class: "btn btn-secondary ml-1" %>

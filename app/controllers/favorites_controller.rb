@@ -5,6 +5,7 @@ class FavoritesController < ApplicationController
   def create
     @favorite = current_user.favorites.build(article_id: @article.id)
     @favorite.save
+    @article.create_notification_favorite(current_user)
     respond_to do |format|
       format.html { redirect_to @article }
       format.js

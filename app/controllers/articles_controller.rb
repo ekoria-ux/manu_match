@@ -9,7 +9,7 @@ class ArticlesController < ApplicationController
 
   def show
     @article = Article.find(params[:id])
-    @comments = @article.comments.includes([:user]).order(created_at: :desc)
+    @comments = @article.comments.includes(user: { avatar_attachment: :blob }).order(created_at: :desc)
     @comment = Comment.new
   end
 
@@ -42,7 +42,7 @@ class ArticlesController < ApplicationController
   def destroy
     @article = Article.find(params[:id])
     @article.destroy
-    redirect_to :articles, flash: { success: "記事を削除しました" }
+    redirect_to request.referrer, flash: { success: "記事を削除しました" }
   end
 
   private

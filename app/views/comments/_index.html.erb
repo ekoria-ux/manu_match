@@ -1,0 +1,16 @@
+<% if comments.any? %>
+  <% comments.first(COMMENT_COUNT).each do |comment| %>
+    <%= render "comments/comment_show", comment: comment %>
+  <% end %>
+  <div class="accordion" id="accordionComments">
+    <button class="btn-sm" type="button" data-toggle="collapse" data-target="#collapseComments" aria-expanded="false" aria-controls="collapseComments">
+      コメントを全て見る
+    </button>
+    <div id="collapseComments" class="collapse" data-parent="#accordionComments">
+      <% comments.offset(COMMENT_COUNT).each do |comment| %>
+        <%= render "comments/comment_show", comment: comment %>
+      <% end %>
+    </div>
+<% else %>
+  <p>まだコメントはありません</p>
+<% end %>

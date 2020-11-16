@@ -1,0 +1,3 @@
+$("#comment_area").html("<%= j(render 'index', { comments: @comment.article.comments.includes(user: { avatar_attachment: :blob }).order(created_at: :desc) }) %>");
+$("#comment-content").val('');
+

@@ -19,6 +19,11 @@
             </div>
           </div>
         <% end %>
+        <% if pagy.vars[:count] > 9 %>
+          <span class="pagination pagination-sm justify-content-center p-bottom">
+            <%== pagy_bootstrap_nav(pagy) %>
+          </span>
+        <% end %>
       </div>
     <% else %>
       <div>

@@ -1,8 +1,13 @@
 class StaticPagesController < ApplicationController
+  include Pagy::Backend
+
   def home
-    @articles = Article.includes([:author]).visible.order(created_at: :desc)
+    @pagy, @articles = pagy(Article.includes([:author]).visible.order(created_at: :desc))
   end
 
   def about
+  end
+
+  def term
   end
 end

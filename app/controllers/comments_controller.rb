@@ -1,25 +1,28 @@
 class CommentsController < ApplicationController
   before_action :require_login
-  before_action :set_article
 
   def create
-    @comment = current_user.comments.build(comment_params)
-    @comment.article_id = params[:article_id]
+    @article = Article.find(params[:article_id])
+    @comment = @article.comments.build(comment_params)
+    @comment.user_id = current_user.id
     @comment.save
-    redirect_to @article
+    @article.create_notification_comment(current_user, @comment.id)
+    respond_to do |format|
+      format.html { redirect_to request.referrer }
+      format.js { render :index }
+    end
   end
 
   def destroy
-    @comment = Comment.find_by(user_id: current_user.id, article_id: @article.id)
+    @comment = Comment.find_by(id: params[:id])
     @comment.destroy
-    redirect_to @article
+    respond_to do |format|
+      format.html { redirect_to request.referrer }
+      format.js { render :index }
+    end
   end
 
   private
-
-  def set_article
-    @article = Article.find(params[:article_id])
-  end
 
   def comment_params
     params.require(:comment).permit(:content)

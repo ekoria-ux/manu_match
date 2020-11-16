@@ -1,2 +1,15 @@
-<h1>StaticPages#home</h1>
-<%= render "shared/articles_index", articles: @articles %>
+<section>
+  <div class="intro">
+    <h4>manu-Matchへようこそ</h4>
+    <li>工場の実働率を上げ、協力できる会社を増やしましょう</li>
+    <li>「繁忙期は忙しいのに、閑散期に人が余るから採用は増やせない」</li>
+    <li>「閑散期に工場実働率が下がって困る」</li>
+    <li>こんな経験ありませんか？そのお悩み私たちと改善しましょう</li>
+  </div>
+  <div class="center mt-5">
+    <% unless logged_in? %>
+      <%= link_to "ユーザー登録", signup_path, class: "btn btn-primary btn-lg"%>
+    <% end %>
+  </div>
+</section> 
+<%= render "shared/articles_index", articles: @articles, pagy: @pagy %>
