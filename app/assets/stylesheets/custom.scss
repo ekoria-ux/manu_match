@@ -305,10 +305,14 @@ footer {
 
 /* table */
 td {
-  width: 90%;
   .break {
     word-break: break-all;   
   }
+}
+.w-test {
+  display: inline-block;
+  width: auto;
+  text-align: center;
 }
 
 /* pagenation */
