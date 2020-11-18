@@ -1,24 +1,33 @@
-# README
+# manu-Match
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Ruby on Railsでポートフォリオ用に作成したサービスです
 
-Things you may want to cover:
+# 概要 
 
-* Ruby version
+<img width="1440" alt="スクリーンショット 2020-11-18 17 27 29" src="https://user-images.githubusercontent.com/64192021/99505935-cfb4e600-29c4-11eb-8c77-f5f90539c273.png">
 
-* System dependencies
+# バージョン
+Ruby  2.7.1
+Rails 6.0.3
 
-* Configuration
+# 機能
+## 記事関連
+ - 一覧表示機能
+ - 詳細表示機能
+ - 編集機能
+ - 削除機能
+ - キーワード検索機能
+ - お気に入り機能
+ - コメント投稿機能
 
-* Database creation
+## ユーザー関連
+ - 登録機能
+ - 編集機能
+ - ログイン・ログアウト機能
+ - フォロー機能
 
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+# 備考
+ - bulletでN＋1問題対応
+ - brakemanでセキュリティー向上
+ - better_errorsでデバッグ性向上
+ - rubocopで目指せ綺麗なコード
