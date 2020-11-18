@@ -59,6 +59,8 @@ group :development do
   gem 'spring-watcher-listen'
   gem 'brakeman'
   gem 'bullet'
+  gem "better_errors"
+  gem "binding_of_caller"
 end
 
 group :production do

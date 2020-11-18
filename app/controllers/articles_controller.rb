@@ -3,13 +3,16 @@ class ArticlesController < ApplicationController
   before_action :require_login
 
   def index
-    @articles = Article.visible.order(created_at: :desc)
-    @pagy, @favorite_articles = pagy(current_user.favorite_articles.includes(:author).visible.order(created_at: :desc))
+    @pagy, @favorite_articles = pagy(
+      current_user.favorite_articles.
+      includes(:author).visible.order(created_at: :desc)
+    )
   end
 
   def show
     @article = Article.find(params[:id])
-    @comments = @article.comments.includes(user: { avatar_attachment: :blob }).order(created_at: :desc)
+    @comments = @article.comments.includes(user: { avatar_attachment: :blob }).
+      order(created_at: :desc)
     @comment = Comment.new
   end
 

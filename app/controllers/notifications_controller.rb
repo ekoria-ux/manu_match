@@ -3,7 +3,11 @@ class NotificationsController < ApplicationController
   before_action :require_login
 
   def index
-    @pagy, @notifications = pagy(current_user.passive_notifications.includes(:article, visitor: { avatar_attachment: :blob }))
+    @pagy, @notifications = pagy(
+      current_user.passive_notifications.
+      includes(:article, visitor: { avatar_attachment: :blob }).
+      order(created_at: :desc)
+    )
     @notifications.where(checked: false).each do |notification|
       notification.update_attributes(checked: true)
     end

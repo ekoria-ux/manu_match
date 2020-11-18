@@ -1,15 +1,23 @@
 <header>
   <nav class="navbar navbar-expand-lg mr-auto ml-auto">
     <div class="navbar-brand">
-      <%= link_to "manu-Match", :root, id: "logo", class: "blackbrown"%>
+      <%= link_to "manu-Match", :root, id: "logo", class: "blackbrown mx-1"%>
     </div>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#header-navbarToggler" aria-controls="header-navbarToggler" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
     <div class="collapse navbar-collapse justify-content-around" id="header-navbarToggler">
       <ul class = "navbar-nav mt-lg-10 d-flex align-items-center">
-        <li class="nav-link"><%= link_to "トップ", :root, class: "blackbrown f-size-header"%></li>
         <% if logged_in? %>
+          <% if controller.kind_of?(StaticPagesController)%>
+            <form class="form-inline px-0">
+              <%= form_with(url: search_articles_path, local: true) do |form| %>
+                <%= form.search_field :search, class: "form-control w-50 h-50", placeholder: "記事検索" %>
+                <%= form.submit "検索", class: "btn btn-sm btn-outline-success" %>
+              <% end %>
+            </form>
+          <% end %>
+          <li class="nav-link"><%= link_to "トップ", :root, class: "blackbrown f-size-header"%></li>
           <li class="nav-link"><%= link_to "新規投稿", new_article_path, class: "blackbrown f-size-header"%></li>
           <li class="nav-link">
             <%= link_to :articles, class: "blackbrown f-size-header" do %>

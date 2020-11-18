@@ -26,6 +26,19 @@ class Article < ApplicationRecord
     def status_options
       STATUS_VALUES.map { |status| [status_text(status), status] }
     end
+
+    def search(search)
+      if search
+        Article.where(
+          [
+            "title LIKE ? OR body LIKE ? OR area LIKE ? OR skill LIKE ? OR category LIKE ?",
+            "%#{search}%", "%#{search}%", "%#{search}%", "%#{search}%", "%#{search}%",
+          ]
+        )
+      else
+        Article.all
+      end
+    end
   end
 
   def favorite_by?(user)
@@ -33,7 +46,12 @@ class Article < ApplicationRecord
   end
 
   def create_notification_favorite(current_user)
-    temp = Notification.where(["visitor_id = ? and visited_id = ? and article_id = ? and action = ? ", current_user.id, user_id, id, "favorite"])
+    temp = Notification.where(
+      [
+        "visitor_id = ? and visited_id = ? and article_id = ? and action = ? ",
+        current_user.id, user_id, id, "favorite",
+      ]
+    )
     if temp.blank?
       notification = current_user.active_notifications.new(
         article_id: id,
@@ -46,9 +64,11 @@ class Article < ApplicationRecord
       notification.save if notification.valid?
     end
   end
-  
+
   def create_notification_comment(current_user, comment_id)
-    temp_ids = Comment.select(:user_id).where(article_id: id).where.not(user_id: current_user.id).distinct
+    temp_ids = Comment.select(:user_id).where(article_id: id).where.not(
+      user_id: current_user.id
+    ).distinct
     temp_ids.each do |temp_id|
       save_notification_comment(current_user, comment_id, temp_id['user_id'])
     end

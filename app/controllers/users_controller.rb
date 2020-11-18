@@ -3,7 +3,7 @@ class UsersController < ApplicationController
   before_action :require_login, except: [:new, :create]
   before_action :correct_user, only: [:edit, :update]
   after_action :default_image, only: :create
-  
+
   def show
     @user = User.find(params[:id])
     @article = @user.articles
@@ -54,7 +54,7 @@ class UsersController < ApplicationController
   def followers
     @title = "フォロワー"
     @user  = User.find(params[:id])
-    @pagy,@users = pagy(@user.followers)
+    @pagy, @users = pagy(@user.followers)
     render 'show_follow'
   end
 
@@ -71,7 +71,14 @@ class UsersController < ApplicationController
 
   def default_image
     unless @user.avatar.attached?
-      @user.avatar.attach(io: File.open(Rails.root.join('app', 'assets', 'images', 'default-image.png')), filename: 'default-image.png', content_type: 'image/png')
+      @user.avatar.attach(
+        io: File.open(
+          Rails.root.join(
+            'app', 'assets', 'images', 'default-image.png'
+          )
+        ),
+        filename: 'default-image.png', content_type: 'image/png'
+      )
     end
   end
 

@@ -5,7 +5,6 @@ class SessionsController < ApplicationController
   end
 
   def create
-    user = User.find_by(email: params[:session][:email])
     user = login(
       params[:session][:email], params[:session][:password], params[:session][:remember_me]
     )

@@ -10,9 +10,10 @@ Rails.application.routes.draw do
   resources :articles do
     resource :favorites, only: [:create, :destroy]
     resources :comments, only: [:create, :destroy]
+    collection { get :search }
   end
   resources :users do
-    collection { get "search" }
+    collection { get :search }
     collection { get :following, :followers }
   end
   resources :relationships, only: [:create, :destroy]

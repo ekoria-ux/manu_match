@@ -1,7 +1,7 @@
 class AccountsController < ApplicationController
   include Pagy::Backend
   before_action :require_login
-  
+
   def show
     @user = current_user
     @pagy, @articles = pagy(@user.articles.order(created_at: :desc))
