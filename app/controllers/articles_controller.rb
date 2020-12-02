@@ -43,9 +43,9 @@ class ArticlesController < ApplicationController
   end
 
   def destroy
-    @article = Article.find(params[:id])
+    @article = current_user.articles.find_by(id: params[:id])
     @article.destroy
-    redirect_to request.referrer, flash: { success: "記事を削除しました" }
+    redirect_to account_path, flash: { success: "記事を削除しました" }
   end
 
   private

@@ -1,0 +1,8 @@
+<% provide(:title, "管理ページ") %>
+
+<h4><%= yield(:title) %></h4>
+
+<ul>
+  <li><%= link_to "ユーザー管理", :admin_users %></li>
+  <li><%= link_to "記事管理", :admin_articles %></li>
+</ul>

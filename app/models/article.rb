@@ -15,7 +15,7 @@ class Article < ApplicationRecord
   scope :published, -> { where("status <> ?", "draft") }
 
   def check_date
-    errors.add(:date_hired_to, :hired_to_old) unless date_hired_from <= date_hired_to
+    errors.add(:date_hired_to, :hired_to_old) if date_hired_to.to_s < date_hired_from.to_s
   end
 
   class << self

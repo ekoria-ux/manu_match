@@ -14,7 +14,11 @@
 
   <body>
     <div class = "container">
-      <%= render "shared/header" %>
+      <% if controller.kind_of?(Admin::Base) %>
+        <%= render "shared/admin_header" %>
+      <% else %>
+        <%= render "shared/header" %>
+      <% end %>
       <%= render "shared/flash" %>
       <main>
         <%= yield %>

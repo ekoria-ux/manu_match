@@ -1,8 +1,19 @@
 FactoryBot.define do
   factory :notification do
-    visiter_id { 1 }
-    visited_id { 1 }
-    comment_id { 1 }
-    favorite_id { 1 }
+    association :visitor, factory: :user
+    association :visited, factory: :user
+    checked { true }
+  end
+
+  trait :action_comment do
+    action { "comment" }
+  end
+
+  trait :action_follow do
+    action { "follow" }
+  end
+
+  trait :action_favorite do
+    action { "favorite" }
   end
 end

@@ -1,0 +1,54 @@
+<% provide(:title, "#{@article.title}の詳細") %>
+
+<table class="table">
+  <tr>
+    <th><%= Article.human_attribute_name(:title) %></th>
+    <td class="break"><%= simple_format(@article.title) %></td>
+  </tr>
+  <tr>
+    <th><%= Article.human_attribute_name(:body) %></th>
+    <td class="break"><%= simple_format(@article.body) %></td>
+  </tr>
+  <tr>
+    <th>期間</th>
+    <td><%= @article.date_hired_from %>〜<%= @article.date_hired_to %></td>
+  </tr>
+  <tr>
+    <th><%= Article.human_attribute_name(:area) %></th>
+    <td><%= @article.area %></td>
+  </tr>
+  <tr>
+    <th><%= Article.human_attribute_name(:category) %></th>
+    <td><%= @article.category %></td>
+  </tr>
+  <tr>
+    <th><%= Article.human_attribute_name(:e_count) %></th>
+    <td><%= @article.e_count %></td>
+  </tr>
+  <tr>
+    <th><%= Article.human_attribute_name(:skill) %></th>
+    <td class="break"><%= simple_format(@article.skill) %></td>
+  </tr>
+  <tr>
+    <th><%= Article.human_attribute_name(:remark) %></th>
+    <td class="break"><%= simple_format(@article.remark) %></td>
+  </tr> 
+  <tr>
+    <th><%= User.human_attribute_name(:company_name) %></th>
+    <td><%= @article.author.company_name %></td>
+  </tr> 
+  <tr>
+    <th><%= Article.human_attribute_name(:expired_at) %></th>
+    <td><%= @article.expired_at.strftime("%Y-%m-%d %H:%M") %></td>
+  </tr>
+  <% unless current_user == @article.author %>
+  <tr>
+    <th><%= Article.human_attribute_name(:favorite) %></th>
+    <td><%= render "articles/favorite_form", article: @article %></td>
+  </tr>
+  <% end %>
+</table>
+<%= render "comments/form", article: @article, comment: @comment %>
+<div id="comment_area">
+  <%= render "comments/index", comments: @comments %>
+</div>

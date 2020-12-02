@@ -1,0 +1,26 @@
+<div class="row justify-content-center">
+  <div class="col-md-4">
+    <div>
+      <% if user.avatar.attached? %> 
+        <%= image_tag user.profile_avatar(150), class: "profile-pic" %>
+      <% end %>
+    </div>
+  </div>
+  <div class="col-md-4 text-left">
+    <div class="user-info">
+      <h3><%= user.name %></h3>
+      <h4><%= user.company_name %></h4>
+      <h5><%= user.website %></h5>
+      <div class="row">
+        <% if user == current_user %>
+          <div class="col">
+            <%= link_to user.following.count , following_account_path %>フォロー
+          </div>
+          <div class="col">
+            <%= link_to user.followers.count , followers_account_path %>フォロワー
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

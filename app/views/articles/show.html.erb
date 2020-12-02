@@ -2,8 +2,8 @@
 
 <% if current_user == @article.author  %>
   <div class="row justify-content-end">
-    <%= link_to "編集", [:edit, @article] %> |
-    <%= link_to "削除", @article, method: :delete, data: { confirm: "本当に削除しますか？" } %>
+    <%= link_to "編集", edit_article_path(@article) %> |
+    <%= link_to "削除", article_path(@article.id), method: :delete, data: { confirm: "本当に削除しますか？" } %>
   </div>
 <% end %>
 

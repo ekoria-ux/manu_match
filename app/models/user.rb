@@ -64,4 +64,19 @@ class User < ApplicationRecord
       notification.save if notification.valid?
     end
   end
+
+  class << self
+    def search(search)
+      if search
+        User.where(
+          [
+            "name LIKE ? OR company_name LIKE ?",
+            "%#{search}%", "%#{search}%",
+          ]
+        )
+      else
+        User.all
+      end
+    end
+  end
 end

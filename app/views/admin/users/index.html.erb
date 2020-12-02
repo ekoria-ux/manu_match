@@ -1,0 +1,32 @@
+<% provide(:title, "ユーザー管理") %>
+
+<h4><%= yield(:title) %></h4>
+
+<form class="form-inline px-0">
+  <%= form_with(url: search_admin_users_path, method: :get, local: true) do |form| %>
+    <%= form.search_field :search, class: "form-control" %>
+    <%= form.submit "検索", class: "btn btn-sm btn-outline-success" %>
+  <% end %>
+</form>
+
+<%= link_to "ユーザーの新規登録", :new_admin_user, class: "row justify-content-end" %>
+
+<table class="table">
+  <% @users.each do |user| %>
+    <tr>
+      <td><%= user.id %></td>
+      <td><%= link_to user.name, [:admin, user] %></td>
+      <td><%= user.company_name %></td>
+      <td>
+        <%= link_to "編集", [:edit, :admin, user] %> |
+        <%= link_to "削除", [:admin, user], method: :delete,
+                            data: { confirm: "本当に削除しますか？" } %>
+      </td>
+    </tr>
+  <% end %>
+</table>
+<% if @pagy.vars[:count] > 9 %>
+  <span class="pagination pagination-sm justify-content-center p-bottom">
+    <%== pagy_bootstrap_nav(@pagy) %>
+  </span>
+<% end %>

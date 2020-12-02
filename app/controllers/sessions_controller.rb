@@ -6,10 +6,12 @@ class SessionsController < ApplicationController
 
   def create
     user = login(
-      params[:session][:email], params[:session][:password], params[:session][:remember_me]
+      params[:email], params[:password], params[:remember]
     )
-    if user.present?
-      params[:session][:remember_me] == '1' ? remember_me! : force_forget_me!
+    if user.present? && user.administrator?
+      redirect_to admin_root_path, flash: { success: "おかえりなさい" }
+    elsif user.present?
+      params[:remember] == '1' ? remember_me! : force_forget_me!
       redirect_back_or_to :account, success: "ログインしました"
     else
       flash.now[:danger] = "ログインに失敗しました"

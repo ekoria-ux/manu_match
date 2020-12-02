@@ -12,8 +12,7 @@ Rails.application.routes.draw do
     resources :comments, only: [:create, :destroy]
     collection { get :search }
   end
-  resources :users do
-    collection { get :search }
+  resources :users, only: [:show, :new, :create] do
     collection { get :following, :followers }
   end
   resources :relationships, only: [:create, :destroy]
@@ -25,4 +24,14 @@ Rails.application.routes.draw do
     get :favorites
   end
   resource :password, only: [:show, :edit, :update]
+
+  namespace :admin do
+    root "top#index"
+    resources :users do
+      collection { get :search }
+    end
+    resources :articles do
+      collection { get :search }
+    end
+  end
 end
