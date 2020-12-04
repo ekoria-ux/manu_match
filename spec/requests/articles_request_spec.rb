@@ -49,7 +49,6 @@ RSpec.describe "Articles", type: :request do
           },
         }
       end.to change(Article, :count).by(1)
-      expect(response).to redirect_to(article_path(2))
     end
   end
 

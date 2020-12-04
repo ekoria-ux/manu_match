@@ -34,12 +34,11 @@ gem 'mini_magick'
 gem 'active_storage_validations'
 gem 'pagy'
 gem 'jquery-rails'
+gem 'pg'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
-  # Use sqlite3 as the database for Active Record
-  gem 'sqlite3'
   gem 'capybara'
   gem 'rubocop-airbnb'
   gem 'rspec-rails'
@@ -62,8 +61,4 @@ group :development do
   gem 'bullet'
   gem "better_errors"
   gem "binding_of_caller"
-end
-
-group :production do
-  gem 'pg'
 end

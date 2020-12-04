@@ -50,7 +50,6 @@ RSpec.describe "Admin::Articles", type: :request do
           },
         }
       end.to change(Article, :count).by(1)
-      expect(response).to redirect_to(admin_article_path(1))
     end
   end
 

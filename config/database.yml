@@ -5,20 +5,23 @@
 #   gem 'sqlite3'
 #
 default: &default
-  adapter: sqlite3
+  adapter: postgresql
+  encoding: unicode
+  host: db
+  username: postgres
+  password: <%= Rails.application.credentials.db[:postgres_password] %>
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
-  timeout: 5000
 
 development:
   <<: *default
-  database: db/development.sqlite3
+  database: manu_match_development
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
 # Do not set this db to the same as development or production.
 test:
   <<: *default
-  database: db/test.sqlite3
+  database: manu_match_test
 
 production:
   adapter: postgresql
@@ -26,4 +29,4 @@ production:
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
   database: manu_match_production
   username: manu_match
-  password: <%= ENV['MANU_MATCH_DATABASE_PASSWORD'] %>
+  password: <= Rails.application.credentials.db[:postgres_password] %>
