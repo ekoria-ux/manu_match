@@ -23,9 +23,8 @@ jobs:
       - run:
           name: Start containers and verify it is working
           command: |
-            set -x
             docker-compose up -d
-            docker exec manu_match_app curl -4 --retry 10 --retry-delay 3 --retry-connrefused http://localhost:3000
+            docker exec manu_match_app curl --retry 10 --retry-delay 3 --retry-connrefused https://localhost:3000
       - save_cache:
           paths:
             - ./vendor/bundle
