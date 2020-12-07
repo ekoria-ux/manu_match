@@ -25,8 +25,8 @@ jobs:
           command: |
             set -x
             docker-compose up -d
-            docker run --network container:contacts \
-              appropriate/curl --retry 10 --retry-delay 3 --retry-connrefused http://localhost:8080/contacts/test
+            docker run --network container:manu_match_app \
+              appropriate/curl --retry 10 --retry-delay 3 --retry-connrefused http://localhost:3000
       - run: bundle exec rake db:create
       - run: bundle exec rake db:seed
       - run:
