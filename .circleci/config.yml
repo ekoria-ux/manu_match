@@ -23,12 +23,10 @@ jobs:
       - run:
           name: Start containers and verify it is working
           command: |
+            set -x
             docker-compose up -d
-            docker exec manu_match_app curl --retry 10 --retry-delay 3 --retry-connrefused https://localhost:3000
-      - save_cache:
-          paths:
-            - ./vendor/bundle
-          key: gemfiles-{{ .Branch }}-{{ checksum "Gemfile.lock" }}
+            docker run --network container:contacts \
+              appropriate/curl --retry 10 --retry-delay 3 --retry-connrefused http://localhost:3000
       - run: bundle exec rake db:create
       - run: bundle exec rake db:seed
       - run:
