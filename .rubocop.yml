@@ -10,6 +10,7 @@ AllCops:
     - "db/**/*"
     - "bin/*"
     - "vendor/*"
+    - "vendor/**/*"
     - "config/environments/*"
     - "config/initializers/*"
     - "config/routes.rb"
