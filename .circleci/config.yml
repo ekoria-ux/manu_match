@@ -28,11 +28,11 @@ jobs:
       - run: 
           name: Prepair db
           command: |
-            docker-compose exec manu_match bundle exec rails db:migrate
-            docker-compose exec manu_match bundle exec rails db:seed
+            bundle exec rails db:migrate
+            bundle exec rails db:seed
       - run:
           name: Run rspec
-          command: docker-compose exec manu_match rspec
+          command: bundle exec rspec
 
   rubocop:
     working_directory: ~/manu_match
