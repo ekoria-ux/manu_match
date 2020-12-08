@@ -25,11 +25,6 @@ jobs:
           command: |
             set -x
             docker-compose up -d
-      - run: 
-          name: Prepair db
-          command: |
-            bundle exec rake db:migrate
-            bundle exec rake db:seed
       - run:
           name: Run rspec
           command: bundle exec rspec
