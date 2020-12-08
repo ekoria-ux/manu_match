@@ -29,7 +29,7 @@ jobs:
           name: Prepair db
           command: |
             docker-compose exec manu_match bundle exec rails db:migrate
-            docker-compose exec manu_match bundle exec rails db:seeds
+            docker-compose exec manu_match bundle exec rails db:seed
       - run:
           name: Run rspec
           command: docker-compose exec manu_match rspec
@@ -99,7 +99,7 @@ jobs:
             heroku config:set AWS_BUCKET_NAME=$AWS_BUCKET_NAME
             heroku config:set RAILS_MASTER_KEY=$RAILS_MASTER_KEY
             heroku run bin/rails db:migrate
-            heroku run bin/rails db:seeds
+            heroku run bin/rails db:seed
 
 orbs:
   build-tools: circleci/build-tools@2.7.0
