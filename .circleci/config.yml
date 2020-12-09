@@ -29,11 +29,14 @@ jobs:
             set -x
             docker-compose up -d
       - run:
+          name: sleep for waiting launch db
+          command: sleep 1
+      - run:
           name: rails db:migrate
-          command: docker-compose exec manu_match bundle exec rails db:migrate db:seed
+          command: docker-compose exec manu_match rails db:migrate db:seed
       - run:
           name: Run rspec
-          command: docker-compose exec manu_match bundle exec rspec
+          command: docker-compose exec manu_match rspec
 
   rubocop:
     working_directory: ~/manu_match
