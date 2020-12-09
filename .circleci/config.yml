@@ -32,8 +32,11 @@ jobs:
           name: sleep for waiting launch db
           command: sleep 1
       - run:
+          name: rails db:migrate
+          command: bundle exec rails db:migrate db:seed
+      - run:
           name: Run rspec
-          command: docker-compose exec manu_match rspec
+          command: bundle exec rspec
 
   rubocop:
     working_directory: ~/manu_match
