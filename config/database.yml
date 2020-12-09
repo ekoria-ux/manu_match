@@ -22,6 +22,7 @@ development:
 test:
   <<: *default
   database: manu_match_test
+  host: <%= ENV['PGHOST'] || 'db' %>
 
 production:
   adapter: postgresql
