@@ -30,10 +30,7 @@ jobs:
             docker-compose up -d
       - run:
           name: sleep for waiting launch db
-          command: sleep 15
-      - run:
-          name: rails db:migrate
-          command: docker-compose exec manu_match rails db:migrate db:seed
+          command: sleep 1
       - run:
           name: Run rspec
           command: docker-compose exec manu_match rspec
