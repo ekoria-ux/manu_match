@@ -1,0 +1,487 @@
+# Orb 'circleci/build-tools@2.7.0' resolved to 'circleci/build-tools@2.7.0'
+# Orb 'circleci/jq@2.2.0' resolved to 'circleci/jq@2.2.0'
+version: 2
+jobs:
+  rspec:
+    working_directory: ~/manu_match
+    docker:
+    - image: circleci/ruby:2.7.1
+      environment:
+        RAILS_MASTER_KEY: ${RAILS_MASTER_KEY}
+        RAILS_ENV: test
+    steps:
+    - checkout
+    - restore_cache:
+        keys:
+        - gemfiles-{{ .Branch }}-{{ checksum "Gemfile.lock" }}
+        - gemfiles-{{ .Branch }}-
+        - gemfiles-master-
+    - setup_remote_docker
+    - run:
+        name: Setup environment variable
+        command: |
+          echo "export COMPOSE_FILE=docker-compose.ci.yml" >> $BASH_ENV
+    - run:
+        name: Start containers
+        command: |
+          set -x
+          sudo docker-compose up -d
+          sudo docker-compose stop
+    # - run:
+    #     name: sleep for waiting launch db
+    #     command: sleep 1
+    # - run:
+    #     name: db:migrate
+    #     command: |
+    #       sudo docker-compose exec manu_match bash -c 'bundle exec rails db:migrate'
+    #       sudo docker-compose exec manu_match bash -c 'bundle exec rails db:seed'
+    # - run:
+    #     name: Run rspec
+    #     command: sudo docker-compose exec manu_match rspec
+
+  rubocop:
+    working_directory: ~/manu_match
+    docker:
+    - image: circleci/ruby:2.7.1
+    steps:
+    - checkout
+    - restore_cache:
+        keys:
+        - gemfiles-{{ .Branch }}-{{ checksum "Gemfile.lock" }}
+        - gemfiles-{{ .Branch }}-
+        - gemfiles-master-
+    - run:
+        command: bundle config --local path vendor/bundle
+    - run:
+        name: bundle install
+        command: bundle check || bundle install --jobs=8 --clean
+    - run:
+        name: Run rubocop
+        command: bundle exec rubocop --parallel
+  brakeman:
+    working_directory: ~/manu_match
+    docker:
+    - image: circleci/ruby:2.7.1
+    steps:
+    - checkout
+    - restore_cache:
+        keys:
+        - gemfiles-{{ .Branch }}-{{ checksum "Gemfile.lock" }}
+        - gemfiles-{{ .Branch }}-
+        - gemfiles-master-
+    - run:
+        command: bundle config --local path vendor/bundle
+    - run:
+        name: bundle install
+        command: bundle check || bundle install --jobs=8 --clean
+    - run:
+        name: Run brakeman
+        command: bundle exec brakeman
+  heroku_deploy:
+    working_directory: ~/manu_match
+    docker:
+    - image: sue445/heroku-cli
+    steps:
+    - checkout
+    - run:
+        command: |
+          if [[ $EUID == 0 ]]; then export SUDO=""; else export SUDO="sudo"; fi
+
+          # determine OS
+          if uname -a | grep Darwin > /dev/null 2>&1; then
+            PLATFORM=mac
+            echo "macOS detected; Homebrew will be used"
+          elif cat /etc/issue | grep Alpine > /dev/null 2>&1; then
+            PLATFORM=alpine
+            echo "Alpine Linux detected; apk will be used"
+          elif cat /etc/issue | grep Debian > /dev/null 2>&1; then
+            PLATFORM=debian
+            echo "Debian Linux detected; apt-get will be used"
+          elif cat /etc/issue | grep Ubuntu > /dev/null 2>&1; then
+            PLATFORM=ubuntu
+            echo "Ubuntu Linux detected; apt-get will be used"
+          fi
+
+          case $PLATFORM in
+          mac)
+            # brew install formulas
+            HOMEBREW_NO_AUTO_UPDATE=1 brew install \
+              bzip2 \
+              coreutils \
+              curl \
+              git \
+              gzip \
+              gnu-tar \
+              gnupg \
+              mercurial \
+              make \
+              netcat \
+              openssh \
+              parallel \
+              perl \
+              unzip \
+              wget \
+              zip \
+              > /dev/null 2>&1
+
+            echo "CI tools were installed successfully"
+          ;;
+          alpine)
+            # apk add pkgs
+            apk add \
+              bash \
+              bzip2 \
+              ca-certificates \
+              curl \
+              git \
+              gnupg \
+              gzip \
+              make \
+              mercurial \
+              net-tools \
+              netcat-openbsd \
+              openssh-client \
+              parallel \
+              tar \
+              unzip \
+              wget \
+              zip \
+              > /dev/null 2>&1
+
+              echo "CI tools were installed successfully"
+          ;;
+          debian)
+            # apt-get install packages
+            $SUDO apt-get update > /dev/null 2>&1 && \
+              $SUDO apt-get install -y \
+              bzip2 \
+              ca-certificates \
+              curl \
+              git \
+              gnupg \
+              gzip \
+              locales \
+              mercurial \
+              make \
+              net-tools \
+              netcat \
+              openssh-client \
+              parallel \
+              tar \
+              unzip \
+              wget \
+              zip \
+              > /dev/null 2>&1
+
+              echo "CI tools were installed successfully"
+          ;;
+          ubuntu)
+            # apt-get install packages
+            $SUDO apt-get update > /dev/null 2>&1 && \
+              $SUDO apt-get install -y \
+              bzip2 \
+              ca-certificates \
+              curl \
+              git \
+              gnupg \
+              gzip \
+              locales \
+              mercurial \
+              make \
+              net-tools \
+              netcat \
+              openssh-client \
+              parallel \
+              tar \
+              unzip \
+              wget \
+              zip \
+              > /dev/null 2>&1
+
+              echo "CI tools were installed successfully"
+          ;;
+          *)
+            # check for/try with Oracle Linux or other distros using yum
+            if command -v yum >> /dev/null 2>&1; then
+              $SUDO yum install -y \
+                bzip2 \
+                ca-certificates \
+                curl \
+                git \
+                gnupg \
+                gzip \
+                make \
+                mercurial \
+                net-tools \
+                nc \
+                openssh-clients \
+                parallel \
+                tar \
+                unzip \
+                wget \
+                which \
+                zip \
+                > /dev/null 2>&1
+
+                # locales
+                yum reinstall -y \
+                glibc-common \
+                > /dev/null 2>&1
+            else
+              echo "Sorry, you are using an unsupported OS/distribution (orb command is currently compatible across macOS, Alpine Linux, Debian Linux, and Ubuntu Linux)"
+              exit 1
+            fi
+          ;;
+          esac
+        name: Install CI tools
+    - run:
+        command: |
+          # Quietly try to make the install directory.
+          mkdir -p ~/bin | true
+
+          # Selectively export the SUDO command, depending if we have permission
+          # for a directory and whether we're running alpine.
+          if [[ $EUID == 0 ]]; then export SUDO=""; else # Check if we're root
+            if cat /etc/issue | grep Alpine > /dev/null 2>&1 || ! [[ -w "~/bin" ]]; then
+              export SUDO="sudo";
+            fi
+          fi
+
+          # If our first mkdir didn't succeed, we needed to run as sudo.
+          if [ ! -w ~/bin ]; then
+            $SUDO mkdir -p ~/bin
+          fi
+
+          echo 'export PATH=$PATH:~/bin' >> $BASH_ENV
+          source $BASH_ENV
+
+          # check if jq needs to be installed
+          if command -v jq >> /dev/null 2>&1; then
+
+              echo "jq is already installed..."
+
+            if [[ false == true ]]; then
+              echo "removing it."
+              $SUDO rm -f $(command -v jq)
+            else
+              echo "ignoring install request."
+              exit 0
+            fi
+          fi
+
+          # Set jq version
+          if [[ latest == "latest" ]]; then
+            JQ_VERSION=$(curl -Ls -o /dev/null -w %{url_effective} "https://github.com/stedolan/jq/releases/latest" | sed 's:.*/::')
+            echo "Latest version of jq is $JQ_VERSION"
+          else
+            JQ_VERSION=latest
+          fi
+
+          # extract version number
+          JQ_VERSION_NUMBER_STRING=$(echo $JQ_VERSION | sed -E 's/-/ /')
+          arrJQ_VERSION_NUMBER=($JQ_VERSION_NUMBER_STRING)
+          JQ_VERSION_NUMBER="${arrJQ_VERSION_NUMBER[1]}"
+
+          # Set binary download URL for specified version
+          # handle mac version
+          if uname -a | grep Darwin > /dev/null 2>&1; then
+            JQ_BINARY_URL="https://github.com/stedolan/jq/releases/download/${JQ_VERSION}/jq-osx-amd64"
+          else
+            # linux version
+            JQ_BINARY_URL="https://github.com/stedolan/jq/releases/download/${JQ_VERSION}/jq-linux64"
+          fi
+
+          jqBinary="jq-$PLATFORM"
+
+          if [ -d "$JQ_VERSION/sig" ]; then
+            # import jq sigs
+
+            if uname -a | grep Darwin > /dev/null 2>&1; then
+              HOMEBREW_NO_AUTO_UPDATE=1 brew install gnupg coreutils
+
+              PLATFORM=osx-amd64
+            else
+              if cat /etc/issue | grep Alpine > /dev/null 2>&1; then
+                $SUDO apk add gnupg > /dev/null 2>&1
+              fi
+              PLATFORM=linux64
+            fi
+
+            gpg --import "$JQ_VERSION/sig/jq-release.key" > /dev/null
+
+            curl --output "$JQ_VERSION/sig/v$JQ_VERSION_NUMBER/jq-$PLATFORM" \
+                --silent --show-error --location --fail --retry 3 \
+                "$JQ_BINARY_URL"
+
+            # verify sha256sum, sig, install
+
+            gpg --verify "$JQ_VERSION/sig/v$JQ_VERSION_NUMBER/jq-$PLATFORM.asc"
+
+            pushd "$JQ_VERSION/sig/v$JQ_VERSION_NUMBER" && grep "jq-$PLATFORM" "sha256sum.txt" | \
+            sha256sum -c -
+            popd
+            jqBinary="$JQ_VERSION/sig/v$JQ_VERSION_NUMBER/jq-$PLATFORM"
+
+          else
+            curl --output "$jqBinary" \
+              --silent --show-error --location --fail --retry 3 \
+              "$JQ_BINARY_URL"
+          fi
+
+          $SUDO mv "$jqBinary" ~/bin/jq
+          $SUDO chmod +x ~/bin/jq
+
+          # cleanup
+          [[ -d "./$JQ_VERSION" ]] && rm -rf "./$JQ_VERSION"
+
+          # verify version
+          echo "jq has been installed to $(which jq)"
+          echo "jq version:"
+          echo "$(jq --version)"
+        name: Install jq
+        when: always
+    - run:
+        name: Identify who I am
+        command: echo 'export MY_EMAIL=`heroku auth:whoami | tail -n 1`' >> $BASH_ENV
+    - run:
+        name: Deploy
+        command: git push https://heroku:$HEROKU_API_KEY@git.heroku.com/$HEROKU_APP_NAME.git master
+    - run:
+        name: Run post-deploy tasks
+        command: |
+          heroku config:set AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY
+          heroku config:set AWS_HOST_NAME=$AWS_HOST_NAME
+          heroku config:set AWS_REGION=$AWS_REGION
+          heroku config:set AWS_BUCKET_NAME=$AWS_BUCKET_NAME
+          heroku config:set RAILS_MASTER_KEY=$RAILS_MASTER_KEY
+          heroku run bin/rails db:migrate
+          heroku run bin/rails db:seed
+workflows:
+  version: 2
+  build:
+    jobs:
+    - rspec
+    - rubocop
+    - brakeman
+    - heroku_deploy:
+        requires:
+        - rspec
+        - rubocop
+        - brakeman
+
+# Original config.yml file:
+# version: 2.1
+# jobs:
+#   rspec:
+#     working_directory: ~/manu_match
+#     docker:
+#       - image: circleci/ruby:2.7.1
+#         environment:
+#           RAILS_MASTER_KEY: ${RAILS_MASTER_KEY}
+#           RAILS_ENV: test
+#     steps:
+#       - checkout
+#       - restore_cache:
+#           keys:
+#             - gemfiles-{{ .Branch }}-{{ checksum \"Gemfile.lock\" }}
+#             - gemfiles-{{ .Branch }}-
+#             - gemfiles-master-
+#       - setup_remote_docker
+#       - run: bundle config --local path vendor/bundle
+#       - run:
+#           name: bundle install
+#           command: bundle check || bundle install --jobs=8 --clean
+#       - run:
+#           name: Setup environment variable
+#           command: |
+#             echo \"export COMPOSE_FILE=docker-compose.ci.yml\" >> $BASH_ENV
+#       - run:
+#           name: Start containers
+#           command: |
+#             set -x
+#             docker-compose up -d
+#       - run:
+#           name: sleep for waiting launch db
+#           command: sleep 1
+#       - run:
+#           name: Run rspec
+#           command: bundle exec rspec
+# 
+#   rubocop:
+#     working_directory: ~/manu_match
+#     docker:
+#       - image: circleci/ruby:2.7.1
+#     steps:
+#       - checkout
+#       - restore_cache:
+#           keys:
+#             - gemfiles-{{ .Branch }}-{{ checksum \"Gemfile.lock\" }}
+#             - gemfiles-{{ .Branch }}-
+#             - gemfiles-master-
+#       - run: bundle config --local path vendor/bundle
+#       - run:
+#           name: bundle install
+#           command: bundle check || bundle install --jobs=8 --clean
+#       - run:
+#           name: Run rubocop
+#           command: bundle exec rubocop --parallel
+# 
+#   brakeman:
+#     working_directory: ~/manu_match
+#     docker:
+#       - image: circleci/ruby:2.7.1
+#     steps:
+#       - checkout
+#       - restore_cache:
+#           keys:
+#             - gemfiles-{{ .Branch }}-{{ checksum \"Gemfile.lock\" }}
+#             - gemfiles-{{ .Branch }}-
+#             - gemfiles-master-
+#       - run: bundle config --local path vendor/bundle
+#       - run:
+#           name: bundle install
+#           command: bundle check || bundle install --jobs=8 --clean
+#       - run:
+#           name: Run brakeman
+#           command: bundle exec brakeman
+# 
+#   heroku_deploy:
+#     working_directory: ~/manu_match
+#     docker:
+#       - image: sue445/heroku-cli
+#     steps:
+#       - checkout
+#       - build-tools/install-ci-tools
+#       - jq/install
+#       - run:
+#           name: Identify who I am
+#           command: echo 'export MY_EMAIL=`heroku auth:whoami | tail -n 1`' >> $BASH_ENV
+#       - run:
+#           name: Deploy
+#           command: git push https://heroku:$HEROKU_API_KEY@git.heroku.com/$HEROKU_APP_NAME.git master
+#       - run:
+#           name: Run post-deploy tasks
+#           command: |
+#             heroku config:set AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY
+#             heroku config:set AWS_HOST_NAME=$AWS_HOST_NAME
+#             heroku config:set AWS_REGION=$AWS_REGION
+#             heroku config:set AWS_BUCKET_NAME=$AWS_BUCKET_NAME
+#             heroku config:set RAILS_MASTER_KEY=$RAILS_MASTER_KEY
+#             heroku run bin/rails db:migrate
+#             heroku run bin/rails db:seed
+# 
+# orbs:
+#   build-tools: circleci/build-tools@2.7.0
+#   jq: circleci/jq@2.2.0
+# workflows:
+#   version: 2.1
+#   build:
+#     jobs:
+#       - rspec
+#       - rubocop
+#       - brakeman
+#       - heroku_deploy:
+#           requires:
+#             - rspec
+#             - rubocop
+#             - brakeman

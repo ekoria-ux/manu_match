@@ -15,10 +15,6 @@ jobs:
             - gemfiles-{{ .Branch }}-
             - gemfiles-master-
       - setup_remote_docker
-      - run: bundle config --local path vendor/bundle
-      - run:
-          name: bundle install
-          command: bundle check || bundle install --jobs=8 --clean
       - run:
           name: Setup environment variable
           command: |
@@ -32,8 +28,14 @@ jobs:
           name: sleep for waiting launch db
           command: sleep 1
       - run:
-          name: Run rspec
-          command: bundle exec rspec
+        name: db:migrate
+        command: |
+          docker-compose exec manu_match bash -c 'bundle exec rails db:migrate'
+          docker-compose exec manu_match bash -c 'bundle exec rails db:seed'
+    - run:
+        name: Run rspec
+        command: docker-compose exec manu_match rspec
+
 
   rubocop:
     working_directory: ~/manu_match
