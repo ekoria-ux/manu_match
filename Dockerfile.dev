@@ -18,9 +18,9 @@ RUN CHROMEDRIVER_VERSION=`curl -sS chromedriver.storage.googleapis.com/LATEST_RE
   && mv ~/chromedriver /usr/local/bin/
 RUN mkdir /manu_match
 WORKDIR /manu_match
-COPY Gemfile /manu_match/Gemfile
-COPY Gemfile.lock /manu_match/Gemfile.lock
+COPY ./Gemfile /manu_match/Gemfile
+COPY ./Gemfile.lock /manu_match/Gemfile.lock
 RUN gem install bundler
-RUN bundle install
+RUN bundle install --path vendor/bundle
 COPY . /manu_match
 CMD ["rails", "server", "-b", "0.0.0.0"]
