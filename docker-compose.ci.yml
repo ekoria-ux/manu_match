@@ -3,6 +3,8 @@ services:
   db:
     image: postgres
     environment:
+      RAILS_MASTER_KEY: ${RAILS_MASTER_KEY}
+      POSTGRES_USERNAME: postgres
       POSTGRES_PASSWORD: <%= Rails.application.credentials.db[:postgres_password] %>
   chrome:
     image: selenium/standalone-chrome:latest

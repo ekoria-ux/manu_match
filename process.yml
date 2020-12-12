@@ -10,6 +10,11 @@ jobs:
     - checkout
     - setup_remote_docker
     - run:
+        command: bundle config --local path vendor/bundle
+    - run:
+        name: bundle install
+        command: bundle check || bundle install --jobs=8 --clean
+    - run:
         name: Setup environment variable
         command: |
           echo "export COMPOSE_FILE=docker-compose.ci.yml" >> $BASH_ENV

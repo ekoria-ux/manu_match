@@ -23,4 +23,4 @@ COPY ./Gemfile.lock /manu_match/Gemfile.lock
 RUN gem install bundler
 RUN bundle install --path vendor/bundle
 COPY . /manu_match
-CMD ["rails", "server", "-b", "0.0.0.0"]
+CMD ["bundle", "exec", "rails", "server", "-b", "0.0.0.0"]
