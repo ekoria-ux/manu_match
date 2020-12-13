@@ -26,8 +26,8 @@ jobs:
       - run:
           name: db:migrate
           command: |
-            docker-compose exec manu_match bundle exec rails db:migrate
-            docker-compose exec manu_match bundle exec rails db:seed
+            docker-compose exec manu_match rake db:migrate
+            docker-compose exec manu_match rake db:seed
       - run:
           name: Run rspec
           command: docker-compose exec manu_match rspec

@@ -13,7 +13,7 @@ jobs:
         command: bundle config --local path vendor/bundle
     - run:
         name: bundle install
-        command: bundle check || bundle install --jobs=8 --clean
+        command: bundle install --jobs=8 --clean
     - run:
         name: Setup environment variable
         command: |
