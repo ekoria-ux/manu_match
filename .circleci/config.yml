@@ -27,13 +27,13 @@ jobs:
           command: |
             set -x
             docker-compose up -d
-      - run:
-          name: db:migrate
-          command: |
-            set -x
-            docker-compose exec manu_match bin/rails db:create
-            docker-compose exec manu_match bin/rails db:migrate
-            docker-compose exec manu_match bin/rails db:seed
+      # - run:
+      #     name: db:migrate
+      #     command: |
+      #       set -x
+      #       docker-compose exec manu_match bin/rails db:create
+      #       docker-compose exec manu_match bin/rails db:migrate
+      #       docker-compose exec manu_match bin/rails db:seed
       - run:
           name: Run rspec
           command: docker-compose exec manu_match bin/rspec
