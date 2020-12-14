@@ -23,12 +23,12 @@ jobs:
         command: |
           set -x
           sudo docker-compose up -d
-    - run:
-        name: db:migrate
-        command: |
-          sudo docker-compose exec manu_match bundle exec rails db:create
-          sudo docker-compose exec manu_match bundle exec rails db:migrate
-          sudo docker-compose exec manu_match bundle exec rails db:seed
+    # - run:
+    #     name: db:migrate
+    #     command: |
+    #       sudo docker-compose exec manu_match bundle exec rails db:create
+    #       sudo docker-compose exec manu_match bundle exec rails db:migrate
+    #       sudo docker-compose exec manu_match bundle exec rails db:seed
     - run:
         name: Run rspec
         command: sudo docker-compose exec manu_match bundle exec rspec
