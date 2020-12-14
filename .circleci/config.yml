@@ -26,7 +26,6 @@ jobs:
           name: db:migrate
           command: |
             set -x
-            docker-compose exec manu_match bundle exec rails db:create
             docker-compose exec manu_match bundle exec rails db:migrate
             docker-compose exec manu_match bundle exec rails db:seed
       - run:
