@@ -14,6 +14,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile.ci
+    container_name: manu_match_app
     ports:
       - "3000:3000"
     environment:

@@ -22,4 +22,4 @@ ENV RAILS_MASTER_KEY ${RAILS_MASTER_KEY}
 WORKDIR /manu_match
 COPY . /manu_match
 RUN gem install bundler
-RUN bundle install --path vendor/bundle
+RUN bundle install
