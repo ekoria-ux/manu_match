@@ -20,21 +20,23 @@ jobs:
           name: Start containers
           command: |
             set -x
-            docker-compose up -d
+            docker-compose up --build -d
             docker-compose stop
       - run:
-          name: sleep for waiting launch db
-          command: sleep 1
-      # - run:
-      #     name: db:migrate
-      #     command: |
-      #       set -x
-      #       docker-compose exec manu_match bundle exec rails db:create
-      #       docker-compose exec manu_match bundle exec rails db:migrate
-      #       docker-compose exec manu_match bundle exec rails db:seed
-      # - run:
-      #     name: Run rspec
-      #     command: docker-compose exec manu_match /bin/bash -c "bundle exec rspec"
+          name: docker-compose up
+          command: |
+            set -x
+            docker-compose up -d
+      - run:
+          name: db:migrate
+          command: |
+            set -x
+            docker-compose exec manu_match bin/rails db:create
+            docker-compose exec manu_match bin/rails db:migrate
+            docker-compose exec manu_match bin/rails db:seed
+      - run:
+          name: Run rspec
+          command: docker-compose exec manu_match bin/rspec
 
   rubocop:
     working_directory: ~/manu_match
