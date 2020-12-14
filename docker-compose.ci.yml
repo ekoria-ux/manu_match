@@ -3,9 +3,9 @@ services:
   db:
     image: postgres
     environment:
-      RAILS_MASTER_KEY: ${RAILS_MASTER_KEY}
+      RAILS_MASTER_KEY: $RAILS_MASTER_KEY
       POSTGRES_USERNAME: postgres
-      POSTGRES_PASSWORD: <%= Rails.application.credentials.db[:postgres_password] %>
+      POSTGRES_PASSWORD: $POSTGRES_PASSWORD
   chrome:
     image: selenium/standalone-chrome:latest
     ports:
@@ -18,9 +18,9 @@ services:
     ports:
       - "3000:3000"
     environment:
-      RAILS_MASTER_KEY: ${RAILS_MASTER_KEY}
+      RAILS_MASTER_KEY: $RAILS_MASTER_KEY
       POSTGRES_USERNAME: postgres
-      POSTGRES_PASSWORD: <%= Rails.application.credentials.db[:postgres_password] %>
+      POSTGRES_PASSWORD: $POSTGRES_PASSWORD
     depends_on:
       - db
       - chrome

@@ -17,8 +17,6 @@ RUN CHROMEDRIVER_VERSION=`curl -sS chromedriver.storage.googleapis.com/LATEST_RE
   && chmod 755 ~/chromedriver \
   && mv ~/chromedriver /usr/local/bin/
 RUN mkdir /manu_match
-ARG RAILS_MASTER_KEY
-ENV RAILS_MASTER_KEY ${RAILS_MASTER_KEY}
 WORKDIR /manu_match
 COPY . /manu_match
 RUN gem install bundler
