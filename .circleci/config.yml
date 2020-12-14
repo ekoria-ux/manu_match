@@ -33,7 +33,7 @@ jobs:
       #       docker-compose exec manu_match bundle exec rails db:seed
       - run:
           name: Run rspec
-          command: docker-compose exec manu_match bundle exec rspec
+          command: docker-compose exec manu_match /bin/bash -c "bundle exec rspec"
 
   rubocop:
     working_directory: ~/manu_match
