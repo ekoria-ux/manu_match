@@ -12,15 +12,6 @@ jobs:
     steps:
       - checkout
       - setup_remote_docker
-      - restore_cache:
-          keys:
-            - gemfiles-{{ .Branch }}-{{ checksum "Gemfile.lock" }}
-            - gemfiles-{{ .Branch }}-
-            - gemfiles-master-
-      - run: bundle config --local path vendor/bundle
-      - run:
-          name: bundle install
-          command: bundle check || bundle install --jobs=8 --clean
       - run:
           name: Setup environment variable
           command: |
