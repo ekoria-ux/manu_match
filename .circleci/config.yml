@@ -31,12 +31,12 @@ jobs:
       #     name: db:migrate
       #     command: |
       #       set -x
-      #       docker-compose exec manu_match bin/rails db:create
-      #       docker-compose exec manu_match bin/rails db:migrate
-      #       docker-compose exec manu_match bin/rails db:seed
+      #       docker-compose exec manu_match /bin/rails db:create
+      #       docker-compose exec manu_match /bin/rails db:migrate
+      #       docker-compose exec manu_match /bin/rails db:seed
       - run:
           name: Run rspec
-          command: docker-compose exec manu_match bin/rspec
+          command: docker-compose exec manu_match /bin/rspec
 
   rubocop:
     working_directory: ~/manu_match
