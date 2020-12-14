@@ -21,6 +21,7 @@ jobs:
           command: |
             set -x
             docker-compose up -d
+            docker-compose stop
       - run:
           name: sleep for waiting launch db
           command: sleep 1
@@ -31,9 +32,9 @@ jobs:
       #       docker-compose exec manu_match bundle exec rails db:create
       #       docker-compose exec manu_match bundle exec rails db:migrate
       #       docker-compose exec manu_match bundle exec rails db:seed
-      - run:
-          name: Run rspec
-          command: docker-compose exec manu_match /bin/bash -c "bundle exec rspec"
+      # - run:
+      #     name: Run rspec
+      #     command: docker-compose exec manu_match /bin/bash -c "bundle exec rspec"
 
   rubocop:
     working_directory: ~/manu_match
@@ -106,10 +107,10 @@ workflows:
   build:
     jobs:
       - rspec
-      - rubocop
-      - brakeman
-      - heroku_deploy:
-          requires:
-            - rspec
-            - rubocop
-            - brakeman
+      # - rubocop
+      # - brakeman
+      # - heroku_deploy:
+      #     requires:
+      #       - rspec
+      #       - rubocop
+      #       - brakeman
