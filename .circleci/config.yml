@@ -22,9 +22,6 @@ jobs:
       - run:
           name: bundle install
           command: bundle check || bundle install --jobs=8 --clean
-      - run:
-          name: install dependencies
-          command: yarn install
       - save_cache:
           key: gemfiles-{{ .Branch }}-{{ checksum "Gemfile.lock" }}-{{ checksum "yarn.lock" }}
           paths:
@@ -35,6 +32,9 @@ jobs:
           command: |
             set -x
             docker-compose up --build -d
+      - run:
+          name: install dependencies
+          command: docker exec manu_match_app bundle exec yarn install
       - run:
           name: db:migrate
           command: |
