@@ -17,15 +17,14 @@ jobs:
             - gemfiles-{{ .Branch }}-{{ checksum "Gemfile.lock" }}
       - run:
           name: Setup environment variable
-          command: |
-            echo "export COMPOSE_FILE=docker-compose.ci.yml" >> $BASH_ENV
+          command: echo "export COMPOSE_FILE=docker-compose.ci.yml" >> $BASH_ENV
+      - run: bundle config --local path vendor/bundle
+      - run:
+          name: bundle install
+          command: bundle check || bundle install --jobs=8 --clean
       - run:
           name: install dependencies
-          command: |
-            bundle install --jobs=4 --retry=3 --path vendor/bundle
-      - run:
-          name: install dependencies
-          command: yarn
+          command: yarn install
       - save_cache:
           key: gemfiles-{{ .Branch }}-{{ checksum "Gemfile.lock" }}-{{ checksum "yarn.lock" }}
           paths:
@@ -51,8 +50,7 @@ jobs:
           command: docker exec manu_match_app bundle exec rspec
       - run:
           name: Stop containers
-          command: |
-            docker-compose stop
+          command: docker-compose stop
 
   rubocop:
     working_directory: ~/manu_match
