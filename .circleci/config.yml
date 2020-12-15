@@ -12,6 +12,11 @@ jobs:
     steps:
       - checkout
       - setup_remote_docker
+      - restore_cache:
+          keys:
+            - gemfiles-{{ .Branch }}-{{ checksum "Gemfile.lock" }}
+            - gemfiles-{{ .Branch }}-
+            - gemfiles-master-
       - run:
           name: Setup environment variable
           command: |
@@ -31,6 +36,10 @@ jobs:
       - run:
           name: Run rspec
           command: docker exec manu_match_app bundle exec rspec
+      - run:
+          name: Stop containers
+          command: |
+            docker-compose stop
 
   rubocop:
     working_directory: ~/manu_match
