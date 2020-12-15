@@ -33,7 +33,7 @@ jobs:
             docker exec manu_match_app bundle exec rails db:create
             docker exec manu_match_app bundle exec rails db:migrate
             docker exec manu_match_app bundle exec rails db:seed
-      -run:
+      - run:
           name: webpacker compile
           command: docker exec manu_match_app bundle exec rails webpacker:compile
       - run:
