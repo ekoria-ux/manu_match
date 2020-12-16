@@ -6,7 +6,6 @@ jobs:
       - image: circleci/ruby:2.7.1-node
         environment:
           PGHOST: 127.0.0.1
-          RAILS_ENV: test
           POSTGRES_USERNAME: postgres
           POSTGRES_PASSWORD: $POSTGRES_PASSWORD
     steps:
@@ -43,9 +42,9 @@ jobs:
             docker exec manu_match_app bundle exec rails db:create
             docker exec manu_match_app bundle exec rails db:migrate
             docker exec manu_match_app bundle exec rails db:seed
-      - run:
-          name: webpacker compile
-          command: docker exec manu_match_app bundle exec rails webpacker:compile
+      # - run:
+      #     name: webpacker compile
+      #     command: docker exec manu_match_app bundle exec rails webpacker:compile
       - run:
           name: Run rspec
           command: docker exec manu_match_app bundle exec rspec
