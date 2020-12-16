@@ -44,8 +44,8 @@ jobs:
             docker exec manu_match_app bundle exec rails db:migrate
             docker exec manu_match_app bundle exec rails db:seed
       - run:
-          name: webpacker
-          command: docker exec manu_match_app bundle exec bin/webpack
+          name: webpacker compile
+          command: docker exec manu_match_app bundle exec rails webpacker:compile
       - run:
           name: Run rspec
           command: docker exec manu_match_app bundle exec rspec
