@@ -92,12 +92,12 @@ workflows:
   version: 2.1
   build:
     jobs:
-      - rspec
+      # - rspec
       # - rubocop
       # - brakeman
-      # - heroku/deploy-via-git:
-      #     post-steps:
-      #       - run: heroku run_app bundle exec rails db:migrate
+      - heroku/deploy-via-git:
+          post-steps:
+            - run: heroku run_app bundle exec rails db:migrate
           # requires:
           #   - rspec
           #   - rubocop
