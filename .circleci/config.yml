@@ -3,7 +3,7 @@ jobs:
   rspec:
     working_directory: ~/manu_match
     docker:
-      - image: circleci/ruby:2.7.1-node
+      - image: cimg/ruby:2.7.1-node
         environment:
           PGHOST: 127.0.0.1
           POSTGRES_USERNAME: postgres
@@ -18,10 +18,6 @@ jobs:
       - run:
           name: Setup environment variable
           command: echo "export COMPOSE_FILE=docker-compose.ci.yml" >> $BASH_ENV
-      - run: bundle config --local path vendor/bundle
-      - run:
-          name: bundle install
-          command: bundle check || bundle install --jobs=8 --clean
       - save_cache:
           key: gemfiles-{{ .Branch }}-{{ checksum "Gemfile.lock" }}-{{ checksum "yarn.lock" }}
           paths:
@@ -33,18 +29,12 @@ jobs:
             set -x
             docker-compose up --build -d
       - run:
-          name: install dependencies
-          command: docker exec manu_match_app bundle exec yarn install
-      - run:
           name: db:migrate
           command: |
             set -x
             docker exec manu_match_app bundle exec rails db:create
             docker exec manu_match_app bundle exec rails db:migrate
             docker exec manu_match_app bundle exec rails db:seed
-      # - run:
-      #     name: webpacker compile
-      #     command: docker exec manu_match_app bundle exec rails webpacker:compile
       - run:
           name: Run rspec
           command: docker exec manu_match_app bundle exec rspec
@@ -86,43 +76,25 @@ jobs:
           name: Run brakeman
           command: bundle exec brakeman
 
-  heroku_deploy:
-    working_directory: ~/manu_match
-    docker:
-      - image: sue445/heroku-cli
+  deploy:
+    executor: heroku/default
     steps:
       - checkout
-      - build-tools/install-ci-tools
-      - jq/install
-      - run:
-          name: Identify who I am
-          command: echo 'export MY_EMAIL=`heroku auth:whoami | tail -n 1`' >> $BASH_ENV
-      - run:
-          name: Deploy
-          command: git push https://heroku:$HEROKU_API_KEY@git.heroku.com/$HEROKU_APP_NAME.git master
-      - run:
-          name: Run post-deploy tasks
-          command: |
-            heroku config:set AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY
-            heroku config:set AWS_HOST_NAME=$AWS_HOST_NAME
-            heroku config:set AWS_REGION=$AWS_REGION
-            heroku config:set AWS_BUCKET_NAME=$AWS_BUCKET_NAME
-            heroku config:set RAILS_MASTER_KEY=$RAILS_MASTER_KEY
-            heroku run_app bundle exec rails db:migrate
-            heroku run_app bundle exec rails db:seed
-
+      - heroku/install
+      - heroku/deploy-via-git
 orbs:
-  build-tools: circleci/build-tools@2.7.0
-  jq: circleci/jq@2.2.0
+  heroku: circleci/heroku@1.2.3
 workflows:
   version: 2.1
   build:
     jobs:
-      - rspec
+      # - rspec
       # - rubocop
       # - brakeman
-      # - heroku_deploy:
-      #     requires:
-      #       - rspec
-      #       - rubocop
-      #       - brakeman
+      - heroku/deploy-via-git:
+          post-steps:
+            - run: heroku run_app bundle exec rails db:migrate
+          # requires:
+          #   - rspec
+          #   - rubocop
+          #   - brakeman

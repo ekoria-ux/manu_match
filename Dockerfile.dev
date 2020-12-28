@@ -21,4 +21,5 @@ WORKDIR /manu_match
 COPY . /manu_match
 RUN gem install bundler
 RUN bundle install --path vendor/bundle
+RUN rails webpacker:install
 CMD ["bundle", "exec", "rails", "server", "-b", "0.0.0.0"]

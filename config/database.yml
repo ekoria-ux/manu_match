@@ -25,9 +25,6 @@ test:
   host: <%= ENV['PGHOST'] || 'db' %>
 
 production:
-  adapter: postgresql
-  encoding: unicode
-  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  <<: *default
   database: manu_match_production
   username: manu_match
-  password: <= Rails.application.credentials.db[:postgres_password] %>
