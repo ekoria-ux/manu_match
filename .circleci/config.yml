@@ -29,6 +29,10 @@ jobs:
             set -x
             docker-compose up --build -d
       - run:
+          name: install webpacker
+          command:
+            docker exec manu_match_app bundle exec rails webpacker:install
+      - run:
           name: db:migrate
           command: |
             set -x

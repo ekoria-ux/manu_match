@@ -20,4 +20,4 @@ RUN mkdir /manu_match
 WORKDIR /manu_match
 COPY . /manu_match
 RUN gem install bundler
-RUN bundle install && bundle exec rails webpacker:install
+RUN bundle install
