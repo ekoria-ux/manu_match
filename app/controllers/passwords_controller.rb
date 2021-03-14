@@ -11,8 +11,11 @@ class PasswordsController < ApplicationController
   def update
     @user = current_user
     current_password = params[:account][:current_password]
-    if current_password.present? && params[:account][:password].present?
-                                 && @user.valid_password?(current_password)
+    if (
+      current_password.present? 
+      && params[:account][:password].present?
+      && @user.valid_password?(current_password)
+    )
       if @user.update(password_params)
         redirect_to :account, flash: { success: "パスワードを変更しました" }
       else
