@@ -1,5 +1,5 @@
 current directory: /Users/ekoria/environment/myapp/manu_match/vendor/bundle/ruby/2.7.0/gems/sassc-2.4.0/ext
-/Users/ekoria/.rbenv/versions/2.7.1/bin/ruby -I /Users/ekoria/.rbenv/versions/2.7.1/lib/ruby/2.7.0 -r ./siteconf20201211-6923-1oze9bn.rb extconf.rb
+/Users/ekoria/.rbenv/versions/2.7.1/bin/ruby -I /Users/ekoria/.rbenv/versions/2.7.1/lib/ruby/site_ruby/2.7.0 -r ./siteconf20210330-9845-rgspr3.rb extconf.rb
 creating Makefile
 
 current directory: /Users/ekoria/environment/myapp/manu_match/vendor/bundle/ruby/2.7.0/gems/sassc-2.4.0/ext
@@ -77,4 +77,4 @@ linking shared-object sassc/libsass.bundle
 
 current directory: /Users/ekoria/environment/myapp/manu_match/vendor/bundle/ruby/2.7.0/gems/sassc-2.4.0/ext
 make "DESTDIR=" install
-/usr/bin/install -c -m 0755 libsass.bundle ./.gem.20201211-6923-18p4o60/sassc
+/usr/bin/install -c -m 0755 libsass.bundle ./.gem.20210330-9845-11xaema/sassc

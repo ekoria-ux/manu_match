@@ -4,7 +4,7 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 ruby '2.7.1'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '~> 6.0.3', '>= 6.0.3.3'
+gem 'rails', '~> 6.1.0', '>= 6.1.3.1'
 # Use Puma as the app server
 gem 'puma'
 # Use SCSS for stylesheets
@@ -21,7 +21,7 @@ gem 'jbuilder'
 # gem 'bcrypt', '~> 3.1.7'
 
 # Use Active Storage variant
-# gem 'image_processing', '~> 1.2'
+gem 'image_processing'
 
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', require: false
@@ -29,7 +29,6 @@ gem 'sorcery'
 gem 'bootstrap'
 gem 'rails-i18n'
 gem 'aws-sdk-s3', require: false
-gem 'image_processing'
 gem 'mini_magick'
 gem 'active_storage_validations'
 gem 'pagy'
@@ -53,10 +52,10 @@ end
 group :development do
   # Access an interactive console on exception pages or by calling 'console' anywhere in the code.
   gem 'web-console'
+  gem 'rack-mini-profiler'
   gem 'listen'
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
-  gem 'spring-watcher-listen'
   gem 'brakeman'
   gem 'bullet'
   gem "better_errors"

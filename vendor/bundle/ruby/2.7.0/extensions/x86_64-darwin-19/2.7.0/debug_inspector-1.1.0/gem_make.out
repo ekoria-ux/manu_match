@@ -1,0 +1,15 @@
+current directory: /Users/ekoria/environment/myapp/manu_match/vendor/bundle/ruby/2.7.0/gems/debug_inspector-1.1.0/ext/debug_inspector
+/Users/ekoria/.rbenv/versions/2.7.1/bin/ruby -I /Users/ekoria/.rbenv/versions/2.7.1/lib/ruby/site_ruby/2.7.0 -r ./siteconf20210330-9845-i609x4.rb extconf.rb
+creating Makefile
+
+current directory: /Users/ekoria/environment/myapp/manu_match/vendor/bundle/ruby/2.7.0/gems/debug_inspector-1.1.0/ext/debug_inspector
+make "DESTDIR=" clean
+
+current directory: /Users/ekoria/environment/myapp/manu_match/vendor/bundle/ruby/2.7.0/gems/debug_inspector-1.1.0/ext/debug_inspector
+make "DESTDIR="
+compiling debug_inspector.c
+linking shared-object debug_inspector.bundle
+
+current directory: /Users/ekoria/environment/myapp/manu_match/vendor/bundle/ruby/2.7.0/gems/debug_inspector-1.1.0/ext/debug_inspector
+make "DESTDIR=" install
+/usr/bin/install -c -m 0755 debug_inspector.bundle ./.gem.20210330-9845-1b902iw

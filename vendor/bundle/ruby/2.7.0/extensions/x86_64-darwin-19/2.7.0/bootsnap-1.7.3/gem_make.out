@@ -1,0 +1,15 @@
+current directory: /Users/ekoria/environment/myapp/manu_match/vendor/bundle/ruby/2.7.0/gems/bootsnap-1.7.3/ext/bootsnap
+/Users/ekoria/.rbenv/versions/2.7.1/bin/ruby -I /Users/ekoria/.rbenv/versions/2.7.1/lib/ruby/site_ruby/2.7.0 -r ./siteconf20210330-9845-18ccva1.rb extconf.rb
+creating Makefile
+
+current directory: /Users/ekoria/environment/myapp/manu_match/vendor/bundle/ruby/2.7.0/gems/bootsnap-1.7.3/ext/bootsnap
+make "DESTDIR=" clean
+
+current directory: /Users/ekoria/environment/myapp/manu_match/vendor/bundle/ruby/2.7.0/gems/bootsnap-1.7.3/ext/bootsnap
+make "DESTDIR="
+compiling bootsnap.c
+linking shared-object bootsnap/bootsnap.bundle
+
+current directory: /Users/ekoria/environment/myapp/manu_match/vendor/bundle/ruby/2.7.0/gems/bootsnap-1.7.3/ext/bootsnap
+make "DESTDIR=" install
+/usr/bin/install -c -m 0755 bootsnap.bundle ./.gem.20210330-9845-1d6i9bw/bootsnap
