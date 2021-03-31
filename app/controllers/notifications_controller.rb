@@ -9,7 +9,7 @@ class NotificationsController < ApplicationController
       order(created_at: :desc)
     )
     @notifications.where(checked: false).each do |notification|
-      notification.update_attributes(checked: true)
+      notification.update(checked: true)
     end
   end
 
