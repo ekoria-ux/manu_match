@@ -3,7 +3,7 @@
 <%= render "shared/error_messages", object: @user %>
 
 <div class="row justify-content-center">
-  <div class="col-md-6 col-md-offset-3">
+  <div class="col-md-9 col-md-offset-3">
     <h4><%= yield(:title) %></h4>
     <div class="row mb-2 justify-content-end"><%= link_to "マイページに戻る", :account %></div>
     <%= form_with(model: @user, scope: "account", url: :account, local: true) do |form| %>

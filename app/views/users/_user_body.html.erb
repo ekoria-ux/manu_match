@@ -1,26 +1,31 @@
-<div class="row justify-content-center">
-  <div class="col-md-4">
-    <div>
+<div class="row justify-content-center outer-box">
+  <div class="col-md-5 position-relative">
+    <div class="text-center">
       <% if user.avatar.attached? %> 
-        <%= image_tag user.profile_avatar(150), class: "profile-pic" %>
+        <%= image_tag user.avatar, class: "profile-pic profile-size xy_center" %>
       <% end %>
     </div>
   </div>
-  <div class="col-md-4 text-left">
+  <div class="col-md-5 text-left">
     <div class="user-info">
-      <h3><%= user.name %></h3>
-      <h4><%= user.company_name %></h4>
-      <h5><%= user.website %></h5>
-      <div class="row">
-        <% if user == current_user %>
+      <h4 class="title"><%= user.name %></h3>
+      <h4 class="ft_24_28"><%= user.company_name %></h4>
+      <h5 class="ft_24_28"><%= user.website %></h5>
+      <% if user == current_user %>
+        <div class="row mb-4">
           <div class="col">
             <%= link_to user.following.count , following_account_path %>フォロー
           </div>
           <div class="col">
             <%= link_to user.followers.count , followers_account_path %>フォロワー
           </div>
+        </div>
+        <% if controller.kind_of?(AccountsController) %>
+          <div class="profile-btn mb-4">
+            <%= link_to "アカウント情報編集", :edit_account, class: "btn btn-info col-12" %>
+          </div>
         <% end %>
-      </div>
+      <% end %>
     </div>
   </div>
 </div>

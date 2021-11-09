@@ -1,11 +1,31 @@
 @import "bootstrap";
 
 /* mixins, variables, etc. */
+$media-pc: 760px;
+// $media-sp: 760px;
 
 @mixin box_sizing {
   -moz-box-sizing:    border-box;
   -webkit-box-sizing: border-box;
   box-sizing:         border-box;
+}
+
+@mixin pc {
+  @media only screen and (min-width: $media-pc ) {
+    @content;  
+  }
+}
+
+.pointer {
+  cursor: pointer;
+}
+
+.xy_center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translateY(-50%) translateX(-50%);
+  -webkit-transform: translateY(-50%) translateX(-50%);
 }
 
 /* bootstrap */
@@ -15,10 +35,16 @@ $bgHighlight    : #53ad44;
 $coDefault      : #000000;
 $coHighlight    : #ffffff;
 $dropDown       : false;
+.container {
+  padding-left: 0px;
+  padding-right: 0px;
+  // margin-left: 0px;
+  // margin-right: 0px;
+}
 .navbar {
   background-color: $bgDefault;
   width: 100%;
-  border-radius: 0.5em;
+  border-radius: 0.2em;
   .navbar-brand {
     color: $coDefault;
     &:hover, &:focus {
@@ -139,6 +165,7 @@ body {
   display: flex;
   flex-flow: column;
   min-height: 100vh;
+  width: 100%;
 }
 
 main {
@@ -149,7 +176,7 @@ section {
   overflow: auto;
   background-image: image-url('PAK85_kirikotosupana20141028182225.jpg');
   background-size: cover;
-  border-radius: 0.5em;
+  border-radius: 0.2em;
   color: $bgDefault;
   min-height: 500px;
   .intro {
@@ -201,6 +228,10 @@ li {
   word-break: break-all;   
 }
 
+.outer-box {
+  padding-left: 15px;
+  padding-right: 15px;
+}
 /* typography */
 
 h1, h2, h3, h4, h5, h6 {
@@ -219,6 +250,20 @@ p {
   width: 90%;
   .break {
     word-break: break-all;
+  }
+}
+
+.title {
+  font-size: 24px;
+  @include pc {
+    font-size: 28px;
+  }
+}
+
+.ft_24_28 {
+  font-size: 20px;
+  @include pc {
+    font-size: 24px;
   }
 }
 
@@ -293,6 +338,15 @@ footer {
 .profile-pic {
   border-radius: 50%;
   border: 2px solid black;
+}
+
+.profile-size {
+  height: 120px;
+  width: 120px;
+  @include pc {
+    height: 200px;
+    width: 200px;
+  }
 }
 
 .form-label {

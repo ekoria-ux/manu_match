@@ -1,7 +1,7 @@
 version: '3'
 services:
   db:
-    image: postgres
+    image: postgres:13
     volumes:
       - ./tmp/db:/var/lib/postgresql/data
     environment:
@@ -16,8 +16,9 @@ services:
       context: .
       dockerfile: Dockerfile.dev
     volumes:
-      - ./manu_match
+      - .:/manu_match
     environment:
+      BUNDLE_APP_CONFIG: /manu_match/.bundle
       POSTGRES_USERNAME: postgres
       POSTGRES_PASSWORD: <%= Rails.application.credentials.db[:postgres_password] %>
     ports:
@@ -25,6 +26,8 @@ services:
     depends_on:
       - db
       - chrome
+    tmpfs:
+      - /tmp
     stdin_open: true
     tty: true
-    command: bin/rails s -p 3000 -b 0.0.0.0
+    command: /bin/sh -c "rm -f tmp/pids/server.pid && bundle exec rails s -p 3000 -b 0.0.0.0"
