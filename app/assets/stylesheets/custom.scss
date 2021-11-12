@@ -394,3 +394,11 @@ td {
 li {
   margin: 10px 0;
 }
+
+/* レイアウト */
+.l_follow {
+  text-align: center;
+  @include pc {
+    text-align: left;
+  }
+}
