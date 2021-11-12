@@ -39,7 +39,7 @@ RSpec.describe "Users", type: :system do
     end
 
     it "マイページに戻るリンクのテスト" do
-      click_link "マイページに戻る"
+      click_on "戻る"
       expect(current_path).to eq account_path
     end
 
@@ -71,7 +71,7 @@ RSpec.describe "Users", type: :system do
 
     it "アカウント情報編集に戻るリンクのテスト" do
       click_link "パスワード変更"
-      click_link "アカウント情報編集に戻る"
+      click_on "戻る"
       expect(current_path).to eq edit_account_path
     end
   end
