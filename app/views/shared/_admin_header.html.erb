@@ -1,7 +1,7 @@
 <header>
   <nav class="navbar navbar-expand-lg mr-auto ml-auto">
     <div class="navbar-brand">
-      <%= link_to "manu-Match", :admin_root, id: "logo", class: "blackbrown mx-1"%>
+      <%= link_to "manu-Match", :admin_root, id: "logo", class: "blackwhite mx-1"%>
     </div>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#header-navbarToggler" aria-controls="header-navbarToggler" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
@@ -9,13 +9,13 @@
     <div class="collapse navbar-collapse justify-content-around" id="header-navbarToggler">
       <ul class = "navbar-nav mt-lg-10 d-flex align-items-center">
         <% if logged_in? %>
-          <li class="nav-link"><%= link_to "管理トップ", :admin_root, class: "blackbrown f-size-header"%></li>
-          <li class="nav-link"><%= link_to "ユーザー管理", :admin_users, class: "blackbrown f-size-header"%></li>
-          <li class="nav-link"><%= link_to "記事管理", :admin_articles, class: "blackbrown f-size-header"%></li>
-          <li class="nav-link"><%= link_to "ユーザートップ", :root, class: "blackbrown f-size-header"%></li>
-          <li class="nav-link"><%= link_to "ログアウト", logout_path, method: :delete, class: "blackbrown f-size-header"%></li>
+          <li class="nav-link"><%= link_to "管理トップ", :admin_root, class: "blackwhite f-size-header"%></li>
+          <li class="nav-link"><%= link_to "ユーザー管理", :admin_users, class: "blackwhite f-size-header"%></li>
+          <li class="nav-link"><%= link_to "記事管理", :admin_articles, class: "blackwhite f-size-header"%></li>
+          <li class="nav-link"><%= link_to "ユーザートップ", :root, class: "blackwhite f-size-header"%></li>
+          <li class="nav-link"><%= link_to "ログアウト", logout_path, method: :delete, class: "blackwhite f-size-header"%></li>
         <% else %>
-          <li class="nav-link"><%= link_to "ログイン", login_path, class: "blackbrown f-size-header"%></li>
+          <li class="nav-link"><%= link_to "ログイン", login_path, class: "blackwhite f-size-header"%></li>
         <% end %>
       </ul>
     </div>

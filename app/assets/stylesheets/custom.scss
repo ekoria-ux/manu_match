@@ -31,7 +31,7 @@ $media-pc: 760px;
 /* bootstrap */
 
 $bgDefault      : #fcb16b;
-$bgHighlight    : #53ad44;
+$bgHighlight    : #f8b781;
 $coDefault      : #000000;
 $coHighlight    : #ffffff;
 $fontForm       : #faba7e;
@@ -130,6 +130,20 @@ $dropDown       : false;
 .btn-success {
   background-color: $bgDefault;
   color: white;
+  &:hover {
+    color: black;
+    background-color: $bgHighlight;
+    border-color: $bgDefault;
+  }
+}
+.btn-primary {
+  background-color: $bgDefault;
+  color: black;
+  border: 2px solid black;
+  &:hover {
+    background-color: $bgHighlight;
+    border-color: $bgDefault;
+  }
 }
 
 @media (max-width: 575px) {
@@ -211,16 +225,20 @@ section {
   .intro {
     li {
       margin: 10px 0;
+      font-size: 16px;
+      @include pc {
+        font-size: 20px;
+      }
     }
-  }
-  @media (min-width: 415px) {
-    .intro {
-      margin-left: 10px;
-    }
-  }
-  @media (min-width: 960px) {
-    .intro {
+    margin-left: 10px;
+    @include pc {
       margin-left: 50px;
+    }
+    h4 {
+      font-size: 20px;
+      @include pc {
+        font-size: 25px;
+      }
     }
   }
 }
@@ -337,15 +355,23 @@ p {
 
 #logo {
   margin: auto 40px;
-  font-size: 1.5rem;
+  font-size: 25px;
   letter-spacing: -1px;
   font-weight: bold;
-}
-
-.blackbrown {
   color: black;
   &:hover {
-    color: saddlebrown;
+    color: white;
+    text-decoration: none;
+  }
+  @include pc {
+    font-size: 30px;
+  }
+}
+
+.blackwhite {
+  color: black;
+  &:hover {
+    color: white;
     text-decoration: none;
   }
 }
