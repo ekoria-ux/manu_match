@@ -34,6 +34,8 @@ $bgDefault      : #fcb16b;
 $bgHighlight    : #53ad44;
 $coDefault      : #000000;
 $coHighlight    : #ffffff;
+$fontForm       : #faba7e;
+$btngray        : #a5a3a3;
 $dropDown       : false;
 .container {
   padding-left: 0px;
@@ -97,6 +99,39 @@ $dropDown       : false;
     }
   }
 }
+.form-label {
+  font-size: 15px;
+  @include pc {
+    font-size: 18px;
+  }
+}
+
+.form-control::placeholder {
+  color: $fontForm!important;
+  opacity: 0.5!important;
+  font-size: 15px;
+  @include pc {
+    font-size: 18px;
+  }
+}
+
+.btn {
+  border: 1px solid $btngray;
+  color: $btngray;
+  border-radius: 10px;
+  padding: 10px 25px;
+  font-size: 18px;
+  @include pc {
+    padding: 15px 30px;
+    border-radius: 15px;
+    font-size: 22px;
+  }
+}
+.btn-success {
+  background-color: $bgDefault;
+  color: white;
+}
+
 @media (max-width: 575px) {
   .navbar-expend-sm .navbar-nav .show .dropdown-menu {
     .dropdown-item {
@@ -141,13 +176,7 @@ $dropDown       : false;
   .dropdown-item.active {
     color: $coHighlight;
     background-color: $bgHighlight; }}
-.btn {
-  border: 2px solid black;
-}
-.btn-primary {
-  background-color: $bgDefault;
-  color: black;
-}
+
 
 /* miscellaneous */
 
@@ -250,13 +279,19 @@ h4 {
 }
 
 h6 {
-  margin: 50px 0 20px 0;
+  margin: 20px 0 10px 0;
+  @include pc {
+    margin: 30px 0 20px 0;
+  }
 }
 
 p {
-  width: 90%;
+  font-size: 15px;
   .break {
     word-break: break-all;
+  }
+  @include pc {
+    font-size: 18px;
   }
 }
 
@@ -264,6 +299,14 @@ p {
   font-size: 24px;
   @include pc {
     font-size: 28px;
+  }
+}
+
+.caution {
+  font-size: 16px;
+  color: red;
+  @include pc {
+    font-size: 20px;
   }
 }
 

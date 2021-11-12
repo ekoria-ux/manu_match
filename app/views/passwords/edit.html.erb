@@ -1,28 +1,30 @@
 <% provide(:title, "パスワード変更") %>
 
 <%= render "shared/error_messages", object: @user %>
-<div class="row justify-content-end"><%= link_to "アカウント情報編集に戻る", :edit_account %></div>
 
-<div class="row justify-content-center">
+<div class="row justify-content-center outer-box">
   <div class="col-md-6 col-md-offset-3">
-    <h4><%= yield(:title) %></h4>
+    <h4 class="title"><%= yield(:title) %></h4>
     <%= form_with(model: @user, scope: "account", url: :password, local: true) do |form| %>
       <div class="form-group">
         <%= form.label :current_password, class: "form-label" %>
-        <%= form.password_field :current_password, autocomplete: "new-password", class: "form-control" %>
+        <%= form.password_field :current_password, autocomplete: "new-password", class: "form-control", placeholder: "現在のパスワードを入力してください" %>
       </div>
 
       <div class="form-group">
         <%= form.label :password, "新しいパスワード", class: "form-label" %>
-        <%= form.password_field :password, autocomplete: "new-password", class: "form-control" %>
+        <%= form.password_field :password, autocomplete: "new-password", class: "form-control", placeholder: "新しいパスワードを入力してください" %>
       </div>
 
       <div class="form-group">
         <%= form.label :password_confirmation, "新しいパスワード(確認用)", class: "form-label" %>
-        <%= form.password_field :password_confirmation, autocomplete: "new-password", class: "form-control" %>
+        <%= form.password_field :password_confirmation, autocomplete: "new-password", class: "form-control", placeholder: "新しいパスワード(確認用)を入力してください" %>
       </div>
 
-      <div><%= form.submit "変更", class: "btn btn-success" %></div>
+      <div class="center">
+        <%= link_to "戻る", :edit_account, class: "btn mr-md-4 mr-2" %>
+        <%= form.submit "変更", class: "btn btn-success" %>
+      </div>
     <% end %>
   </div>
 </div>

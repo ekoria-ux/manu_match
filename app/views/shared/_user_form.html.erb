@@ -1,5 +1,5 @@
 <div class="row justify-content-end">
-  <h6>＊は必須入力項目です</h6>
+  <h6 class="caution">＊は必須入力項目です</h6>
 </div>
 
 <% if params[:action] != "new" %>
@@ -19,42 +19,42 @@
 <div class="form-group">
   <small class="form-label">＊</small>
   <%= form.label :name, class: "form-label" %>
-  <%= form.text_field :name, class: "form-control" %>
+  <%= form.text_field :name, class: "form-control", placeholder: "名前を入力してください" %>
 </div>
 
 <div class="form-group">
   <small class="form-label">＊</small>
   <%= form.label :company_name, class: "form-label" %>
-  <%= form.text_field :company_name, class: "form-control" %>
+  <%= form.text_field :company_name, class: "form-control", placeholder: "会社名を入力してください" %>
 </div>
 
 <div class="form-group">
   <small class="form-label">＊</small>
   <%= form.label :email, class: "form-label" %>
-  <%= form.email_field :email, class: "form-control" %>
+  <%= form.email_field :email, class: "form-control", placeholder: "メールアドレスを入力してください" %>
 </div>
 
 <div class="form-group">
   <%= form.label :website, class: "form-label" %>
-  <%= form.url_field :website, class: "form-control" %>
+  <%= form.url_field :website, class: "form-control", placeholder: "ウェブサイトを入力してください" %>
 </div>
 
 <div class="form-group">
   <%= form.label :phone_number, class: "form-label" %>
-  <%= form.telephone_field :phone_number, class: "form-control" %>
+  <%= form.telephone_field :phone_number, class: "form-control", placeholder: "電話番号を入力してください" %>
 </div>
 
 <% if user.new_record? %>
   <div class="form-group">
     <small class="form-label">＊</small>
     <%= form.label :password, class: "form-label" %>
-    <%= form.password_field :password, autocomplete: "new-password", class: "form-control" %>
+    <%= form.password_field :password, autocomplete: "new-password", class: "form-control", placeholder: "パスワードを入力してください" %>
   </div>
   
   <div class="form-group">
     <small class="form-label">＊</small>
     <%= form.label :password_confirmation, class: "form-label" %>
-    <%= form.password_field :password_confirmation, autocomplete: "new-password", class: "form-control" %>
+    <%= form.password_field :password_confirmation, autocomplete: "new-password", class: "form-control", placeholder: "パスワード(確認)を入力してください" %>
   </div>
 <% end %>
 <script>
