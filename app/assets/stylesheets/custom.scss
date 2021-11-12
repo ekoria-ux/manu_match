@@ -232,6 +232,13 @@ li {
   padding-left: 15px;
   padding-right: 15px;
 }
+
+.image-box {
+  height: 120px;
+  @include pc {
+    height: 200px;
+  }
+}
 /* typography */
 
 h1, h2, h3, h4, h5, h6 {
