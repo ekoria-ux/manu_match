@@ -41,7 +41,7 @@ RSpec.describe "Articles", type: :system do
 
     it "記事の詳細に戻るリンクのテスト" do
       click_link "編集"
-      click_link "記事の詳細に戻る"
+      click_on "戻る"
       expect(current_path).to eq article_path(article)
     end
 
