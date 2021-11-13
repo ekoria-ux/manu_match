@@ -16,6 +16,19 @@ $media-pc: 760px;
   }
 }
 
+@mixin btn {
+  border: 1px solid $btngray;
+  color: $btngray;
+  border-radius: 10px;
+  padding: 10px 25px;
+  font-size: 18px;
+  @include pc {
+    padding: 15px 30px;
+    border-radius: 15px;
+    font-size: 22px;
+  }
+  @content;
+}
 .pointer {
   cursor: pointer;
 }
@@ -116,18 +129,21 @@ $dropDown       : false;
 }
 
 .btn {
-  border: 1px solid $btngray;
-  color: $btngray;
-  border-radius: 10px;
-  padding: 10px 25px;
-  font-size: 18px;
-  @include pc {
-    padding: 15px 30px;
-    border-radius: 15px;
-    font-size: 22px;
+  @include btn;
+}
+
+.btn-card {
+  @include btn {
+    padding: 5px 15px;
+    font-size: 16px;
+    @include pc {
+      padding: 10px 20px;
+      font-size: 20px;
+    }
   }
 }
-.btn-success {
+
+.btn-orange {
   background-color: $bgDefault;
   color: white;
   &:hover {
@@ -136,13 +152,28 @@ $dropDown       : false;
     border-color: $bgDefault;
   }
 }
-.btn-primary {
+.btn-orange-b {
   background-color: $bgDefault;
   color: black;
   border: 2px solid black;
   &:hover {
     background-color: $bgHighlight;
     border-color: $bgDefault;
+  }
+}
+
+.card-title {
+  margin-top: 0px;
+  font-size: 18px;
+  @include pc {
+    font-size: 22px;
+  }
+}
+
+.card-text {
+  font-size: 15px;
+  @include pc {
+    font-size: 18px;
   }
 }
 
@@ -444,17 +475,18 @@ td {
   width: auto;
   text-align: center;
 }
-
-/* pagenation */
-
-@media (min-width: 415px) {
-  .p-bottom {
-    min-width: 460px;
+tr {
+  font-size: 15px;
+  @include pc {
+    font-size: 18px;
   }
 }
 
-@media (min-width: 960px) {
-  .p-bottom {
+/* pagenation */
+
+.p-bottom {
+  min-width: 460px;
+  @include pc {
     min-width: 960px;
   }
 }
