@@ -13,7 +13,7 @@
             <form class="form-inline px-0">
               <%= form_with(url: search_articles_path, local: true) do |form| %>
                 <%= form.search_field :search, class: "form-control w-50 h-50", placeholder: "記事検索" %>
-                <%= form.submit "検索", class: "btn btn-sm btn-outline-success" %>
+                <%= form.submit "検索", class: "btn btn-card-orange ml-1" %>
               <% end %>
             </form>
           <% end %>

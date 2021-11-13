@@ -1,12 +1,5 @@
 <% provide(:title, "#{@article.title}の詳細") %>
 
-<% if current_user == @article.author  %>
-  <div class="row justify-content-end">
-    <%= link_to "編集", edit_article_path(@article) %> |
-    <%= link_to "削除", article_path(@article.id), method: :delete, data: { confirm: "本当に削除しますか？" } %>
-  </div>
-<% end %>
-
 <table class="table">
   <tr>
     <th><%= Article.human_attribute_name(:title) %></th>
@@ -59,3 +52,10 @@
 <div id="comment_area">
   <%= render "comments/index", comments: @comments %>
 </div>
+
+<% if current_user == @article.author  %>
+  <div class="row justify-content-end">
+    <%= link_to "編集ページへ移動", edit_article_path(@article) %> |
+    <%= link_to "記事を削除", article_path(@article.id), method: :delete, data: { confirm: "本当に削除しますか？" } %>
+  </div>
+<% end %>

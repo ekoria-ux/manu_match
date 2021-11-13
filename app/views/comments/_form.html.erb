@@ -1,10 +1,10 @@
 <%= form_with(model: [article, comment]) do |form| %>
-  <div class="form-group row">
+  <div class="form-group row align-items-center outer-box">
     <div class="col-md-10">
-      <%= form.text_field :content, placeholder: "コメント入力", class: "form-control", id: "comment-content" %>
+      <%= form.text_field :content, placeholder: "コメントを入力してください", class: "form-control", id: "comment-content" %>
     </div>
-    <div class="col">
-      <%= form.submit "コメントする", class: "btn btn-secondary ml-1" %>
+    <div class="col center mt-md-0 mt-3">
+      <%= form.submit "コメントする", class: "btn btn-card ml-md-1 ml-0" %>
     </div>
   </div>
 <% end %>

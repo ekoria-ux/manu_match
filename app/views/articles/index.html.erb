@@ -1,8 +1,8 @@
 <% provide(:title, "求人記事一覧") %>
 
-<div class="row">
+<div class="row outer-box">
   <div class="col-md-8">
-    <h4><%= yield(:title) %></h4>
+    <h4 class="title"><%= yield(:title) %></h4>
     <% if @favorite_articles.present? %>
       <table class = "table">
         <tbody>

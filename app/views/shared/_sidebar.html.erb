@@ -1,5 +1,5 @@
 <aside id="sidebar">
-  <h4>新着の求人記事</h4>
+  <h4 class="title">新着の求人記事</h4>
   <% articles = Article.visible.published.order(created_at: :desc).limit(5) %>
   <ul>
     <% articles.each do |article| %>

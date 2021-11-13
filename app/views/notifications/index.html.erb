@@ -1,22 +1,22 @@
 <% provide(:title, "通知一覧") %>
 
-<div class="row align-items-center justify-content-center">
-  <div class="col-md-4 offset-md-1">
-    <h4><%= yield(:title) %></h4>
+<div class="row align-items-center outer-box">
+  <div class="col-md-4 offset-md-1 col-6">
+    <h4 class="title"><%= yield(:title) %></h4>
   </div>
-  <div class="col-md-4 offset-md-2">
-    <%= link_to "通知を削除", notification_path(@notifications), method: :delete, class: "btn btn-info" %>
+  <div class="col-md-4 offset-md-2 col-6">
+    <%= link_to "通知を削除", notification_path(@notifications), method: :delete, class: "btn" %>
   </div>
-</div>
-<% if @notifications.exists? %>
-  <%= render "notifications", notifications: @notifications %>
-  <% if @pagy.vars[:count] > 9 %>
-    <span class="pagination pagination-sm justify-content-center">
-      <%== pagy_bootstrap_nav(@pagy) %>
-    </span>
+  <% if @notifications.exists? %>
+    <%= render "notifications", notifications: @notifications %>
+    <% if @pagy.vars[:count] > 9 %>
+      <span class="pagination pagination-sm justify-content-center">
+        <%== pagy_bootstrap_nav(@pagy) %>
+      </span>
+    <% end %>
+  <% else %>
+    <div class="row offset-2">
+      <p>通知はありません</p>
+    </div>
   <% end %>
-<% else %>
-  <div class="offset-md-2">
-    <p>通知はありません</p>
-  </div>
-<% end %>
+</div>

@@ -11,10 +11,14 @@
                 <p class="card-text"><%= article.category %></p>
                 <% if controller.kind_of?(AccountsController) %>
                   <p class="card-text"><%= Article.status_text(article.status) %></p>
+                  <div class="center mt-md-4 mt-2">
+                    <%= link_to "記事を編集", edit_article_path(article), class: "btn btn-card-orange" %>
+                    <%= link_to "記事を削除", article_path(article.id), method: :delete, data: { confirm: "本当に削除しますか？" }, class: "btn btn-card-red mt-md-2 mt-0" %>
+                  </div>
                 <% elsif controller.kind_of?(StaticPagesController)%>
                   <p class="card-text"><%= article.author.company_name %></p>
+                  <div class="center mt-md-4 mt-2"><%= link_to "詳細を見る", article, class: "btn btn-card" %></div>
                 <% end %>
-                <div class="center mt-md-4 mt-2"><%= link_to "詳細を見る", article, class: "btn-card" %></div>
               </div>
             </div>
           </div>
